@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Rent A Car</title>
+        <h:outputStylesheet library ="css" name="bootstrap.css" />   
+    </h:head>
+    <h:body>
+
+        <div class="container">
+            <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+                <a class="navbar-brand">Rent A Car</a>
+                <h:form class="form-inline" >
+                    <h:inputText class="form-control mr-sm-2" a:placeholder="Email" value="#{loginController.kullanici.email}" />
+                    <h:inputSecret class="form-control mr-sm-2" a:placeholder="Parola" value="#{loginController.kullanici.sifre}"/>
+                    <h:commandButton class="btn btn-outline-success my-2 my-sm-0" value="Giriş Yap"  action="#{loginController.login()}"></h:commandButton>
+                </h:form>
+
+            </nav>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <p>
+                            <font size="6" face="tahoma" color="maroon">
+                                Rent A Car Dunyasina Hosgeldiniz
+                            </font>
+                        </p>
+                    </h1>
+                </div>
+                <div class="col-md-6">
+                    <h:form id="kullanici-form">
+                        <div class="form-group">
+                            <h:inputHidden value ="#{kullaniciController.kullanici.email}"/>
+                            <label for="inputEmail">E-MAIL</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.email}"/>
+                        </div>
+                        <div class="form-group">
+                            <h:inputHidden value ="#{kullaniciController.kullanici.kullaniciadi}"/>
+                            <label for="inputKullanciAdi">KULLANICI ADI</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.kullaniciadi}"/>
+                        </div>
+                        <div class="form-group">
+                            <h:inputHidden value ="#{kullaniciController.kullanici.sifre}"/>
+                            <label for="inputSifre">SIFRE</label>
+                            <h:inputSecret  styleClass="form-control" value ="#{kullaniciController.kullanici.sifre}"/>
+                        </div>
+                        <div class="form-group">
+                            <h:inputHidden value ="#{kullaniciController.kullanici.telefon}"/>
+                            <label for="inputTelefon">TELEFON</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.telefon}"/>
+                        </div>
+                        <div class="form-group">
+                            <h:inputHidden value ="#{kullaniciController.kullanici.adres}"/>
+                            <label for="inputAdres">ADRES</label>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.adres}"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group">
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email == null}" styleClass="btn btn-primary" value="KAYIT OL" action="#{kullaniciController.register()}">
+                                    <f:ajax execute="kullanici-form" render="kullanici-form"/> 
+                                </h:commandButton>
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-dark" value="Update" action="#{kullaniciController.modify}">
+                                    <f:ajax execute="kullanici-form" render="kullanici-form"/>
+                                </h:commandButton>
+                                <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-danger" value="Clear Form" action="#{kullaniciController.clearForm}">
+                                    <f:ajax execute="@this" render="kullanici-form"/> 
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
