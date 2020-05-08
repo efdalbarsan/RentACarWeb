@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="sehir-form">
+        <div class="form-inline">
+            <h:inputHidden value ="#{sehirController.sehir.adi}"/>
+            <label for="inputPlaka">SEHIR ADI</label>
+            <h:inputText styleClass="sehir-control" value ="#{sehirController.sehir.adi}"/>
+        </div>
+        <div class="form-group">
+            <div class="btn-group">
+                <h:commandButton rendered="#{sehirController.sehir.adi == null}" styleClass="btn btn-primary" value="Create" action="#{sehirController.create}">
+                    <f:ajax execute="sehir-form" render="sehir-form sehir-table"/> 
+                </h:commandButton>
+                <h:commandButton rendered="#{sehirController.sehir.adi != null}" styleClass="btn btn-dark" value="Update" action="#{sehirController.update}">
+                    <f:ajax execute="sehir-form" render="sehir-form sehir-table"/>
+                </h:commandButton>
+                <h:commandButton rendered="#{sehirController.sehir.adi != null}" styleClass="btn btn-danger" value="Clear Form" action="#{sehirController.clearForm}">
+                    <f:ajax execute="@this" render="sehir-form"/> 
+                </h:commandButton>
+            </div>
+        </div>
+    </h:form>      
+</ui:composition>
+
