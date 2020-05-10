@@ -7,6 +7,7 @@ public class Firma {
     private String email;
     private String adres;  
     private Firma firma;
+    private int sehir_id;
 
     public Firma() {
     }
@@ -20,13 +21,15 @@ public class Firma {
         this.firma = firma;
     }
 
-    public Firma(int firmaid, String adi, String telefon, String email, String adres) {
+    public Firma(int firmaid, String adi, String telefon, String email, String adres, int sehir_id) {
         this.firmaid = firmaid;
         this.adi = adi;
         this.telefon = telefon;
         this.email = email;
         this.adres = adres;
+        this.sehir_id = sehir_id;
     }
+
 
 
     public int getFirmaid() {
@@ -69,10 +72,20 @@ public class Firma {
         this.adres = adres;
     }
 
+    public int getSehir_id() {
+        return sehir_id;
+    }
+
+    public void setSehir_id(int sehir_id) {
+        this.sehir_id = sehir_id;
+    }
+
     @Override
     public String toString() {
-        return "Firma{" + "firmaid=" + firmaid + ", adi=" + adi + ", telefon=" + telefon + ", email=" + email + ", adres=" + adres + ", firma=" + firma + '}';
+        return "Firma{" + "firmaid=" + firmaid + ", adi=" + adi + ", telefon=" + telefon + ", email=" + email + ", adres=" + adres + ", sehir_id=" + sehir_id + '}';
     }
+
+   
     
     
 }
