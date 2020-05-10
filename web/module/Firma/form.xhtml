@@ -26,6 +26,11 @@
             <label for="inputPlaka">ADRES</label>
             <h:inputText styleClass="form-control" value ="#{firmaController.firma.adres}"/>
         </div>
+        <div class="form-inline">
+            <h:inputHidden value ="#{firmaController.firma.sehir_id}"/>
+            <label for="inputSehirId">SehirId</label>
+            <h:inputText styleClass="form-control" value ="#{firmaController.firma.sehir_id}"/>
+        </div>
         <div class="form-group">
             <div class="btn-group">
                 <h:commandButton rendered="#{firmaController.firma.adi == null}" styleClass="btn btn-primary" value="Create" action="#{firmaController.create}">

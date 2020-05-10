@@ -29,6 +29,10 @@
                 <f:facet name="header">ADRES</f:facet>
                     #{firm.adres}
             </h:column>
+            <h:column>
+                <f:facet name="header">SehirId</f:facet>
+                    #{firm.sehir_id}
+            </h:column>
             <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
                 <f:facet name="header">DELETE</f:facet>
                 <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{firmaController.deleteConfirm(firm)}" value ="Delete">
