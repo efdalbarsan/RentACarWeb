@@ -20,7 +20,7 @@ public class FirmaDAO extends Dao {
 
             while (rs.next()) {
                 Firma tmp;
-                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"));
+                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"),rs.getInt("sehir_id"));
                 firmaList.add(tmp);
             }
 
@@ -58,6 +58,7 @@ public class FirmaDAO extends Dao {
             f.setTelefon(rs.getString("telefon"));
             f.setEmail(rs.getString("email"));
             f.setAdres(rs.getString("Adres"));
+            f.setSehir_id(rs.getInt("sehir_id"));
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");
@@ -68,13 +69,14 @@ public class FirmaDAO extends Dao {
     @Override
     public void create(Object obj) {
         Firma firma = (Firma) obj;
-        String q = "insert into firma(adi,telefon,email,adres) values (?,?,?,?)";
+        String q = "insert into firma(adi,telefon,email,adres,sehir_id) values (?,?,?,?,?)";
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
             st.setString(4, firma.getAdres());
+            st.setInt(5, firma.getSehir_id());
 
             st.executeUpdate();
 
@@ -100,14 +102,15 @@ public class FirmaDAO extends Dao {
 
     public void update(Object obj) {
         Firma firma = (Firma) obj;
-        String q = "update firma set adi=?,telefon=?,email=?,adres=? where firmaid = ?";
+        String q = "update firma set adi=?,telefon=?,email=?,adres=?,sehir_id=? where firmaid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
             st.setString(4, firma.getAdres());
-            st.setInt(5, firma.getFirmaid());
+            st.setInt(5, firma.getSehir_id());
+            st.setInt(6, firma.getFirmaid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -124,7 +127,7 @@ public class FirmaDAO extends Dao {
 
             while (rs.next()) {
                 Firma tmp;
-                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"));
+                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"),rs.getInt("sehir_id"));
                 firmaList.add(tmp);
             }
 
