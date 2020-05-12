@@ -19,7 +19,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class SehirController implements Serializable{
-    private List<Sehir> clist;
+     private List<Sehir> clist;
     private SehirDAO adao;
 
     public SehirController() {

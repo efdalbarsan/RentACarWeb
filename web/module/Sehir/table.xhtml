@@ -4,25 +4,27 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:form id="sehir-table">
-        <h:dataTable styleClass="table table-striped table-hover" value="#{sehirController.clist}" var="seh">
-            <h:column>
-                <f:facet name="header">ID</f:facet>
-                <h:commandLink action="#{sehirController.updateForm(seh)}" value="#{seh.sehir_id}">
-                    <f:ajax execute="@this" render="sehir-form" /> 
-                </h:commandLink> 
-            </h:column>
-            <h:column>
-                <f:facet name="header">İSİM</f:facet>
-                    #{seh.adi}
-            </h:column>
-            <h:column>
-                <f:facet name="header">DELETE</f:facet>
-                <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{sehirController.deleteConfirm(seh)}" value ="Delete">
-                    <f:ajax execute="@this" render="delete-modal"/>
-                </h:commandButton>
-            </h:column>
-        </h:dataTable>
-    </h:form>
+    
+        <h:form id="sehir-table">
+            <h:dataTable styleClass="table table-striped table-hover" value="#{sehirController.clist}" var="seh">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:commandLink action="#{sehirController.updateForm(seh)}" value="#{seh.sehir_id}">
+                        <f:ajax execute="@this" render="sehir-form" /> 
+                    </h:commandLink> 
+                </h:column>
+                <h:column>
+                    <f:facet name="header">İSİM</f:facet>
+                        #{seh.adi}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">DELETE</f:facet>
+                    <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{sehirController.deleteConfirm(seh)}" value ="Delete">
+                        <f:ajax execute="@this" render="delete-modal"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+  
 </ui:composition>
 
