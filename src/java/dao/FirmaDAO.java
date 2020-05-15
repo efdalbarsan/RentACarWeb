@@ -10,6 +10,8 @@ import java.util.List;
 
 public class FirmaDAO extends Dao {
 
+    private SehirDAO sehirDAO;
+    
     public List read(int page, int pageSize) {
         List<Firma> firmaList = new ArrayList<>();
 
@@ -129,11 +131,19 @@ public class FirmaDAO extends Dao {
                 Firma tmp;
                 tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"),rs.getInt("sehir_id"));
                 firmaList.add(tmp);
+                tmp.setFirmaSehir(this.getSehirDAO().getSehirFilm(tmp.getFirmaid()));
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
         return firmaList;
+    }
+
+    public SehirDAO getSehirDAO() {
+        if(this.sehirDAO == null){
+            sehirDAO = new SehirDAO();
+        }
+        return sehirDAO;
     }
 }

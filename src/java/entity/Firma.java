@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.List;
+
 public class Firma {
     private int firmaid;
     private String adi;
@@ -8,6 +10,7 @@ public class Firma {
     private String adres;  
     private Firma firma;
     private int sehir_id;
+    private List<Sehir> firmaSehir;
 
     public Firma() {
     }
@@ -78,6 +81,22 @@ public class Firma {
 
     public void setSehir_id(int sehir_id) {
         this.sehir_id = sehir_id;
+    }
+
+    public List<Sehir> getFirmaSehir() {
+        return firmaSehir;
+    }
+
+    public void setFirmaSehir(List<Sehir> firmaSehir) {
+        this.firmaSehir = firmaSehir;
+    }
+
+    public Firma getFirma() {
+        return firma;
+    }
+
+    public void setFirma(Firma firma) {
+        this.firma = firma;
     }
 
     @Override

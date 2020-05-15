@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -85,4 +88,34 @@ public class SehirDAO extends Dao{
         }
     }
 
+    public List<Sehir> getSehirFilm(Long firmaid) {
+        List<Sehir> firmaSehir = new ArrayList<>();
+        try{
+            Statement st= this.getConn().createStatement();
+            ResultSet rs = st.executeQuery("select * from firma_sehir where firmaid ="+firmaid);
+            rs.next();
+            while (rs.next()) {                
+                firmaSehir.add(this.find(rs.getLong("sehir_id")));
+            }
+            
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return firmaSehir;
+    }
+    public Sehir find(Long sehir_id){
+        Sehir s = null;
+        try{
+            Statement st= this.getConn().createStatement();
+            ResultSet rs = st.executeQuery("select * from sehir where sehir_id = "+sehir_id);
+            rs.next();
+            
+            s = new Sehir();
+            s.setSehir_id(rs.getInt("sehir_id"));
+            s.setAdi(rs.getString("adi"));
+        }catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return s;
+    }
 }
