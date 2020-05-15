@@ -3,43 +3,34 @@ package entity;
 import java.util.List;
 
 public class Firma {
-    private int firmaid;
+    private Long firmaid;
     private String adi;
     private String telefon;
     private String email;
     private String adres;  
     private Firma firma;
-    private int sehir_id;
+    private Long sehir_id;
     private List<Sehir> firmaSehir;
 
     public Firma() {
     }
 
-    public Firma(int firmaid, String adi, String telefon, String email, String adres, Firma firma) {
+    public Firma(Long firmaid, String adi, String telefon, String email, String adres, Firma firma, Long sehir_id, List<Sehir> firmaSehir) {
         this.firmaid = firmaid;
         this.adi = adi;
         this.telefon = telefon;
         this.email = email;
         this.adres = adres;
         this.firma = firma;
-    }
-
-    public Firma(int firmaid, String adi, String telefon, String email, String adres, int sehir_id) {
-        this.firmaid = firmaid;
-        this.adi = adi;
-        this.telefon = telefon;
-        this.email = email;
-        this.adres = adres;
         this.sehir_id = sehir_id;
+        this.firmaSehir = firmaSehir;
     }
 
-
-
-    public int getFirmaid() {
+    public Long getFirmaid() {
         return firmaid;
     }
 
-    public void setFirmaid(int firmaid) {
+    public void setFirmaid(Long firmaid) {
         this.firmaid = firmaid;
     }
 
@@ -75,13 +66,15 @@ public class Firma {
         this.adres = adres;
     }
 
-    public int getSehir_id() {
+    public Long getSehir_id() {
         return sehir_id;
     }
 
-    public void setSehir_id(int sehir_id) {
+    public void setSehir_id(Long sehir_id) {
         this.sehir_id = sehir_id;
     }
+
+   
 
     public List<Sehir> getFirmaSehir() {
         return firmaSehir;
