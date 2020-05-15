@@ -1,6 +1,7 @@
 package dao;
 
 import entity.Firma;
+import entity.Sehir;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,8 +22,13 @@ public class FirmaDAO extends Dao {
             ResultSet rs = st.executeQuery("select * from firma order by firmaid asc limit " + pageSize + " offset " + start); 
 
             while (rs.next()) {
-                Firma tmp;
-                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"),rs.getInt("sehir_id"));
+                Firma tmp=new Firma();            
+                tmp.setFirmaid(rs.getLong("firmaid"));
+                tmp.setAdi(rs.getString("adi"));
+                tmp.setTelefon(rs.getString("telefon"));
+                tmp.setEmail(rs.getString("email"));
+                tmp.setAdres(rs.getString("adres"));
+                tmp.setFirmaSehir(this.getSehirDAO().getSehirFirma(tmp.getFirmaid()));
                 firmaList.add(tmp);
             }
 
@@ -55,12 +61,12 @@ public class FirmaDAO extends Dao {
             rs.next();
 
             f = new Firma();
-            f.setFirmaid(rs.getInt("firmaid"));
+            f.setFirmaid(rs.getLong("firmaid"));
             f.setAdi(rs.getString("adi"));
             f.setTelefon(rs.getString("telefon"));
             f.setEmail(rs.getString("email"));
             f.setAdres(rs.getString("Adres"));
-            f.setSehir_id(rs.getInt("sehir_id"));
+            f.setSehir_id(rs.getLong("sehir_id"));
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");
@@ -71,16 +77,27 @@ public class FirmaDAO extends Dao {
     @Override
     public void create(Object obj) {
         Firma firma = (Firma) obj;
-        String q = "insert into firma(adi,telefon,email,adres,sehir_id) values (?,?,?,?,?)";
         try {
-            PreparedStatement st = this.getConn().prepareStatement(q);
+            PreparedStatement st = this.getConn().prepareStatement("insert into firma(adi,telefon,email,adres) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
             st.setString(4, firma.getAdres());
-            st.setInt(5, firma.getSehir_id());
 
             st.executeUpdate();
+            ResultSet gk = st.getGeneratedKeys();
+            Long firmaid = null;
+            if (gk.next()) {
+                firmaid = gk.getLong(1);
+            }
+
+            for (Sehir t : firma.getFirmaSehir()) {
+                st = this.getConn().prepareStatement("insert into firma_sehir(firmaid,sehir_id,firma_sehir_id) values(?,?,default)");
+                st.setLong(1, firmaid);
+                st.setLong(2, t.getSehir_id());
+                st.executeUpdate();
+            }
+
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -94,7 +111,10 @@ public class FirmaDAO extends Dao {
         String q = "delete from firma where firmaid = ?";
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
-            st.setInt(1, firma.getFirmaid());
+            st.setLong(1, firma.getFirmaid());
+            st.executeUpdate();
+            st=this.getConn().prepareStatement("delete from firma_sehir where firmaid=?");
+            st.setLong(1, firma.getFirmaid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -104,16 +124,25 @@ public class FirmaDAO extends Dao {
 
     public void update(Object obj) {
         Firma firma = (Firma) obj;
-        String q = "update firma set adi=?,telefon=?,email=?,adres=?,sehir_id=? where firmaid = ?";
+        String q = "update firma set adi=?,telefon=?,email=?,adres=? where firmaid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, firma.getAdi());
             st.setString(2, firma.getTelefon());
             st.setString(3, firma.getEmail());
             st.setString(4, firma.getAdres());
-            st.setInt(5, firma.getSehir_id());
-            st.setInt(6, firma.getFirmaid());
+            st.setLong(5, firma.getFirmaid());
             st.executeUpdate();
+            st=this.getConn().prepareStatement("delete from firma_sehir where firmaid=?");
+            st.setLong(1, firma.getFirmaid());
+            st.executeUpdate();
+            
+             for (Sehir t : firma.getFirmaSehir()) {
+                st = this.getConn().prepareStatement("insert into firma_sehir(firmaid,sehir_id,firma_sehir_id) values(?,?,default)");
+                st.setLong(1, firma.getFirmaid());
+                st.setLong(2, t.getSehir_id());
+                st.executeUpdate();
+            }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -128,10 +157,14 @@ public class FirmaDAO extends Dao {
             ResultSet rs = st.executeQuery("select * from firma"); 
 
             while (rs.next()) {
-                Firma tmp;
-                tmp = new Firma(rs.getInt("firmaid"), rs.getString("adi"), rs.getString("telefon"), rs.getString("email"), rs.getString("adres"),rs.getInt("sehir_id"));
+                Firma tmp=new Firma();            
+                tmp.setFirmaid(rs.getLong("firmaid"));
+                tmp.setAdi(rs.getString("adi"));
+                tmp.setTelefon(rs.getString("telefon"));
+                tmp.setEmail(rs.getString("email"));
+                tmp.setAdres(rs.getString("adres"));
+                tmp.setFirmaSehir(this.getSehirDAO().getSehirFirma(rs.getLong("firmaid")));
                 firmaList.add(tmp);
-                tmp.setFirmaSehir(this.getSehirDAO().getSehirFilm(tmp.getFirmaid()));
             }
 
         } catch (SQLException ex) {

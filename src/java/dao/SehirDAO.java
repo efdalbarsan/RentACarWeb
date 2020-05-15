@@ -12,9 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -46,7 +43,7 @@ public class SehirDAO extends Dao{
 
             while (rs.next()) {
                 Sehir tmp;
-                tmp = new Sehir(rs.getInt("sehir_id"), rs.getString("adi"));
+                tmp = new Sehir(rs.getLong("sehir_id"), rs.getString("adi"));
 
                 clist.add(tmp);//Her yeni sehiri listeme ekliyorum
 
@@ -65,7 +62,7 @@ public class SehirDAO extends Dao{
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, sehir.getAdi());
-            st.setInt(2, sehir.getSehir_id());
+            st.setLong(2, sehir.getSehir_id());
            
             st.executeUpdate();
 
@@ -80,7 +77,7 @@ public class SehirDAO extends Dao{
         String q = "delete from sehir where sehir_id = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, sehir.getSehir_id());
+            st.setLong(1, sehir.getSehir_id());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -88,14 +85,15 @@ public class SehirDAO extends Dao{
         }
     }
 
-    public List<Sehir> getSehirFilm(Long firmaid) {
+    public List<Sehir> getSehirFirma(Long firmaid) {
         List<Sehir> firmaSehir = new ArrayList<>();
+        System.out.println(firmaid+"-------------------------------firmaid");
         try{
             Statement st= this.getConn().createStatement();
             ResultSet rs = st.executeQuery("select * from firma_sehir where firmaid ="+firmaid);
-            rs.next();
             while (rs.next()) {                
                 firmaSehir.add(this.find(rs.getLong("sehir_id")));
+                System.out.println(this.find(rs.getLong("sehir_id")).toString()+"---------------");
             }
             
         }catch (SQLException ex) {
@@ -111,7 +109,7 @@ public class SehirDAO extends Dao{
             rs.next();
             
             s = new Sehir();
-            s.setSehir_id(rs.getInt("sehir_id"));
+            s.setSehir_id(rs.getLong("sehir_id"));
             s.setAdi(rs.getString("adi"));
         }catch (SQLException ex) {
             System.out.println(ex.getMessage());

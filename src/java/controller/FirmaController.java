@@ -1,18 +1,25 @@
 package controller;
 
 import dao.FirmaDAO;
+import dao.SehirDAO;
 import entity.Firma;
+import entity.Sehir;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 @SessionScoped
 public class FirmaController implements Serializable {
+@Inject
+    private SehirController sehirController;
 
     private List<Firma> clist;
     private FirmaDAO firmaDAO;
+    private List<Sehir> slist;
+    private SehirDAO sdao;
     private int page = 1;
     private int pageSize = 5;
     private int pageCount;
@@ -123,6 +130,29 @@ public class FirmaController implements Serializable {
 
     public void setFirma(Firma firma) {
         this.firma = firma;
+    }
+
+    public SehirController getSehirController() {
+        return sehirController;
+    }
+
+    public void setSehirController(SehirController sehirController) {
+        this.sehirController = sehirController;
+    }
+
+    public List<Sehir> getSlist() {
+        return slist;
+    }
+
+    public void setSlist(List<Sehir> slist) {
+        this.slist = slist;
+    }
+
+    public SehirDAO getSdao() {
+        if(this.sdao == null){
+            this.sdao = new SehirDAO();
+        }
+        return sdao;
     }
 
 
