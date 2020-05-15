@@ -30,8 +30,12 @@
                     #{firm.adres}
             </h:column>
             <h:column>
-                <f:facet name="header">SehirId</f:facet>
-                    #{firm.sehir_id}
+                <f:facet name="header">Sehir</f:facet>
+                <ul>
+                    <ui:repeat  value="#{firm.firmaSehir}" var="sehir">
+                        <li>#{sehir.adi} </li>
+                    </ui:repeat>
+                </ul>   
             </h:column>
             <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
                 <f:facet name="header">DELETE</f:facet>
