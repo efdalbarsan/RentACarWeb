@@ -7,7 +7,7 @@
 
     <h:form id="firma-form" rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
         <div class="form-inline">
-            <h:inputHidden value ="#{firmaController.firma.adi}"/>
+            <h:inputHidden value ="#{firmaController.firma.firmaid}"/>
             <label for="inputPlaka">FIRMA ADI</label>
             <h:inputText styleClass="form-control" value ="#{firmaController.firma.adi}"/>
         </div>
@@ -27,10 +27,12 @@
             <h:inputText styleClass="form-control" value ="#{firmaController.firma.adres}"/>
         </div>
         <div class="form-inline">
-            <h:inputHidden value ="#{firmaController.firma.sehir_id}"/>
-            <label for="inputSehirId">SehirId</label>
-            <h:inputText styleClass="form-control" value ="#{firmaController.firma.sehir_id}"/>
+            <label for="firma_sehir">Sehir Adı</label>
+            <h:selectManyListbox value="#{firmaController.firma.firmaSehir}" styleClass="custom-select" converter="SehirConverter">
+                <f:selectItems value="#{firmaController.sehirController.clist}" var="sehir" itemValue="#{sehir}" itemLabel="#{sehir.adi}"/>
+            </h:selectManyListbox>
         </div>
+        
         <div class="form-group">
             <div class="btn-group">
                 <h:commandButton rendered="#{firmaController.firma.adi == null}" styleClass="btn btn-primary" value="Create" action="#{firmaController.create}">
