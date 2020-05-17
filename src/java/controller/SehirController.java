@@ -21,6 +21,55 @@ import javax.inject.Named;
 public class SehirController implements Serializable{
      private List<Sehir> clist;
     private SehirDAO adao;
+    private int page = 1;
+    private int pageSize = 5;
+    private int pageCount;
+    
+    
+     public void next() {
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
+    }
+
+    public void previous() {
+        if (this.page == 1) {
+            this.page = this.getPageCount();
+        } else {
+            this.page--;
+        }
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageCount() {
+        this.pageCount = (int) Math.ceil(this.getAdao().count() / (double) pageSize);
+        
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+    
+    
+    
 
     public SehirController() {
     }
@@ -48,7 +97,8 @@ public class SehirController implements Serializable{
         clearForm();
     }
 
-    public void update() {
+   public void modify() {
+        
         this.getAdao().update(this.sehir);
     }
 
@@ -87,5 +137,7 @@ public class SehirController implements Serializable{
     public void setSehir(Sehir sehir) {
         this.sehir = sehir;
     }
-    
+
+   
+   
 }

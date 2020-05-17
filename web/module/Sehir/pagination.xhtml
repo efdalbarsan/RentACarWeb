@@ -3,6 +3,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+     <h:form>
+        <pre>Page #{sehirController.page} of #{sehirController.pageCount}</pre>
+        <div class="btn-group">
+            <h:commandButton action="#{sehirController.previous()}" value="Previous" styleClass="btn btn-outline-dark"/>
+            <h:commandButton action="#{sehirController.next()}" value="Next" styleClass="btn btn-outline-dark"/>
+        </div>
+    </h:form>
     
    
         
