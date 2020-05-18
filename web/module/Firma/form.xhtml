@@ -29,7 +29,7 @@
         <div class="form-inline">
             <label for="firma_sehir">Sehir Adı</label>
             <h:selectManyListbox value="#{firmaController.firma.firmaSehir}" styleClass="custom-select" converter="SehirConverter">
-                <f:selectItems value="#{firmaController.sehirController.clist}" var="sehir" itemValue="#{sehir}" itemLabel="#{sehir.adi}"/>
+                <f:selectItems value="#{firmaController.sehirController.cilist}" var="sehir" itemValue="#{sehir}" itemLabel="#{sehir.adi}"/>
             </h:selectManyListbox>
         </div>
         

@@ -102,7 +102,7 @@ public class FirmaController implements Serializable {
     }
 
     public List<Firma> getClist() {
-        this.clist = this.getFirmaDAO().read();
+        this.clist = this.getFirmaDAO().read(page,pageSize);
         return this.clist;
     }
 
@@ -154,7 +154,10 @@ public class FirmaController implements Serializable {
         }
         return sdao;
     }
-
+ public List<Firma> getCilist() {
+        this.clist = this.getFirmaDAO().read();
+        return this.clist;
+    }
 
 
 }

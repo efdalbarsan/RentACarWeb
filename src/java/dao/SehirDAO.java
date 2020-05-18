@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SehirDAO extends Dao {
 
     public List read(int page, int pageSize) {
@@ -23,11 +22,12 @@ public class SehirDAO extends Dao {
 
         try {
             Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from sehir order by Sehir_id asc limit " + pageSize + " offset " + start);
+            ResultSet rs = st.executeQuery("select * from sehir order by sehir_id asc limit " + pageSize + " offset " + start);
 
             while (rs.next()) {
-                Sehir tmp;
-                tmp = new Sehir(rs.getLong("sehir_id"), rs.getString("adi"));
+                Sehir tmp = new Sehir();
+                tmp.setSehir_id(rs.getLong("sehir_id"));
+                tmp.setAdi(rs.getString("adi"));
 
                 clist.add(tmp);//Her yeni sehiri listeme ekliyorum
 
@@ -41,9 +41,10 @@ public class SehirDAO extends Dao {
 
     public int count() {
         int count = 0;
+        
 
         try {
-            PreparedStatement st = getConn().prepareStatement("select count(sehir_id) as sehir_ count from sehir");
+            PreparedStatement st = getConn().prepareStatement("select count(sehir_id) as sehir_count from sehir");
             ResultSet rs = st.executeQuery();
             rs.next();
             count = rs.getInt("sehir_count");
@@ -51,22 +52,6 @@ public class SehirDAO extends Dao {
             System.out.println(ex.getMessage());
         }
         return count;
-    }
-
-    public Sehir find(Long sehir_id) {
-        Sehir s = null;
-        try {
-            Statement st = this.getConn().createStatement();
-            ResultSet rs = st.executeQuery("select * from sehir where sehir_id = " + sehir_id);
-            rs.next();
-
-            s = new Sehir();
-            s.setSehir_id(rs.getLong("sehir_id"));
-            s.setAdi(rs.getString("adi"));
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return s;
     }
 
     @Override
@@ -77,6 +62,20 @@ public class SehirDAO extends Dao {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, sehir.getAdi());
 
+            st.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(Object obj) {
+        Sehir sehir = (Sehir) obj;
+        String q = "delete from sehir where sehir_id = ?";
+        try {
+            PreparedStatement st = getConn().prepareStatement(q);
+            st.setLong(1, sehir.getSehir_id());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -100,18 +99,20 @@ public class SehirDAO extends Dao {
         }
     }
 
-    @Override
-    public void delete(Object obj) {
-        Sehir sehir = (Sehir) obj;
-        String q = "delete from sehir where sehir_id = ?";
+    public Sehir find(Long sehir_id) {
+        Sehir s = null;
         try {
-            PreparedStatement st = getConn().prepareStatement(q);
-            st.setLong(1, sehir.getSehir_id());
-            st.executeUpdate();
+            Statement st = this.getConn().createStatement();
+            ResultSet rs = st.executeQuery("select * from sehir where sehir_id = " + sehir_id);
+            rs.next();
 
+            s = new Sehir();
+            s.setSehir_id(rs.getLong("sehir_id"));
+            s.setAdi(rs.getString("adi"));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+        return s;
     }
 
     public List<Sehir> getSehirFirma(Long firmaid) {
@@ -130,18 +131,19 @@ public class SehirDAO extends Dao {
         }
         return firmaSehir;
     }
-     public List read() {
+
+    public List read() {
 
         List<Sehir> clist = new ArrayList();
-        
 
         try {
-            Statement st = this.getConn().createStatement();                    
+            Statement st = this.getConn().createStatement();
             ResultSet rs = st.executeQuery("select * from sehir ");
 
             while (rs.next()) {
-                Sehir tmp;
-                tmp = new Sehir(rs.getLong("sehir_id"), rs.getString("adi"));
+                Sehir tmp = new Sehir();
+                tmp.setSehir_id(rs.getLong("sehir_id"));
+                tmp.setAdi(rs.getString("adi"));
 
                 clist.add(tmp);//Her yeni sehiri listeme ekliyorum
 
@@ -152,10 +154,5 @@ public class SehirDAO extends Dao {
         }
         return clist;
     }
-
-    List<Sehir> getSehirFirma(long aLong) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 
 }

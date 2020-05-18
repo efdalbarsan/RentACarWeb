@@ -20,7 +20,7 @@ public class DBConnection {
     }
     
     public Connection getConnection() {
-        final String url = "jdbc:postgresql://localhost/RentACarWeb";
+        final String url = "jdbc:postgresql://localhost/RentACar";
         final String user = "postgres";
         final String password = "4486";
         Connection conn = null;
