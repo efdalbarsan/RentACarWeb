@@ -20,9 +20,9 @@ public class DBConnection {
     }
     
     public Connection getConnection() {
-        final String url = "jdbc:postgresql://localhost/RentACar";
+        final String url = "jdbc:postgresql://localhost/RentACarWeb";
         final String user = "postgres";
-        final String password = "4486";
+        final String password = "3344";
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
