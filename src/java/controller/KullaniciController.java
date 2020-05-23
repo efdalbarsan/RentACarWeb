@@ -15,7 +15,6 @@ public class KullaniciController implements Serializable {
 
     private List<Kullanici> kullaniciList;
     private KullaniciDAO kullaniciDAO;
-    private Long GrupSec;
     private GrupDAO grupDAO;
     private List<Grup> grupList;
     
@@ -70,7 +69,6 @@ public class KullaniciController implements Serializable {
     private Kullanici kullanici;
 
     public void updateForm(Kullanici kullanici) {
-        this.GrupSec =new Long(kullanici.getGrupid());
         this.kullanici = kullanici;
     }
 
@@ -89,16 +87,16 @@ public class KullaniciController implements Serializable {
 
     public void delete() {
         this.getKullaniciDAO().delete(this.kullanici);
+        this.kullanici = new Kullanici();
         clearForm();
     }
 
     public void modify() {
-        this.kullanici.setGrupid(GrupSec.intValue());
         this.getKullaniciDAO().update(this.kullanici);
+        clearForm();
     }
 
     public void create() {
-        this.kullanici.setGrupid(GrupSec.intValue());
         this.getKullaniciDAO().create(this.kullanici);
         clearForm();
     }
@@ -136,14 +134,6 @@ public class KullaniciController implements Serializable {
 
     public void setKullaniciDAO(KullaniciDAO kullaniciDAO) {
         this.kullaniciDAO = kullaniciDAO;
-    }
-
-    public Long getGrupSec() {
-        return GrupSec;
-    }
-
-    public void setGrupSec(Long GrupSec) {
-        this.GrupSec = GrupSec;
     }
 
     public GrupDAO getGrupDAO() {

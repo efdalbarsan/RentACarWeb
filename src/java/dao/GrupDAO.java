@@ -19,7 +19,7 @@ public class GrupDAO extends Dao {
 
             while (rs.next()) {
                 Grup tmp;
-                tmp = new Grup(rs.getInt("grupid"), rs.getString("grupadi"));
+                tmp = new Grup(rs.getLong("grupid"), rs.getString("grupadi"));
 
                 clist.add(tmp);//Her yeni grupi listeme ekliyorum
 
@@ -32,7 +32,7 @@ public class GrupDAO extends Dao {
     }
     
 
-    public Grup find(int grupid) {
+    public Grup find(Long grupid) {
         Grup g = null;
 
         try {
@@ -41,7 +41,7 @@ public class GrupDAO extends Dao {
             rs.next();
 
             g = new Grup();
-            g.setGrupid(rs.getInt("grupid"));
+            g.setGrupid(rs.getLong("grupid"));
             g.setGrupadi(rs.getString("grupadi"));
 
         } catch (SQLException ex) {
@@ -71,7 +71,7 @@ public class GrupDAO extends Dao {
         String q = "delete from grup where grupid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, grup.getGrupid());
+            st.setLong(1, grup.getGrupid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -86,7 +86,7 @@ public class GrupDAO extends Dao {
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, grup.getGrupadi());
-            st.setInt(2, grup.getGrupid());
+            st.setLong(2, grup.getGrupid());
 
             st.executeUpdate();
 

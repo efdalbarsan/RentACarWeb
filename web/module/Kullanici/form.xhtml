@@ -23,8 +23,8 @@
         </div>
         <div class="form-inline">
             <label for="inputGrupID">YETKISI</label>
-            <h:selectOneMenu styleClass="custom-select" id ="GrupSec" value="#{kullaniciController.grupSec}">
-                <f:selectItems value="#{kullaniciController.grupList}" var="grup" itemValue="#{grup.grupid}" itemLabel="#{grup.grupadi}"/>
+            <h:selectOneMenu styleClass="custom-select" id ="GrupSec" value="#{kullaniciController.kullanici.grup}" converter="GrupConverter">
+                <f:selectItems value="#{kullaniciController.grupList}" var="grup" itemValue="#{grup}" itemLabel="#{grup.grupadi}"/>
             </h:selectOneMenu> 
         </div>
         <div class="form-inline">
