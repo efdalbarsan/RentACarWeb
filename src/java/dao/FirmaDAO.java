@@ -52,9 +52,8 @@ public class FirmaDAO extends Dao {
         return count;
     }
 
-    public Firma find(int firmaid) {
+    public Firma find(Long firmaid) {
         Firma f = null;
-
         try {
             Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery("select * from firma where firmaid=" + firmaid); //executeQuery veritabanindan veri cekme islemini yapar. 
@@ -73,6 +72,7 @@ public class FirmaDAO extends Dao {
         }
         return f;
     }
+     
 
     @Override
     public void create(Object obj) {

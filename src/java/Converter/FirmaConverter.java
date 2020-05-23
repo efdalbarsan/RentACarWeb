@@ -23,7 +23,7 @@ public class FirmaConverter implements Converter{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return this.getFirmaDAO().find(Integer.valueOf(value));
+        return this.getFirmaDAO().find(Long.valueOf(value));
     }
 
     @Override

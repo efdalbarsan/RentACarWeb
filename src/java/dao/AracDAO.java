@@ -22,9 +22,9 @@ public class AracDAO extends Dao {
 
             while (rs.next()) {
                 Arac tmp;
-                tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"), rs.getInt("firmaid"));
+                tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"));
 
-                tmp.setFirma(this.getFirmaDAO().find(rs.getInt("firmaid")));
+                tmp.setFirma(this.getFirmaDAO().find(rs.getLong("firmaid")));
                 clist.add(tmp);
             }
 
@@ -68,7 +68,7 @@ public class AracDAO extends Dao {
             a.setYakit(rs.getString("yakit"));
             a.setYakit(rs.getString("vites"));
             a.setFiyat(rs.getInt("Fiyat"));
-            a.setFirmaid(rs.getInt("firmaid"));
+            a.setFirma(getFirmaDAO().find(rs.getLong("firmaid")));
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");
@@ -80,6 +80,7 @@ public class AracDAO extends Dao {
     public void create(Object obj) {
         Arac arac = (Arac) obj;
         String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat) values (?,?,?,?,?,?,?,?,?,?)";
+        
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, arac.getPlaka());
@@ -90,7 +91,7 @@ public class AracDAO extends Dao {
             st.setInt(6, arac.getKilometre());
             st.setString(7, arac.getYakit());
             st.setString(8, arac.getVites());
-            st.setInt(9, arac.getFirmaid());
+            st.setLong(9, arac.getFirma().getFirmaid());
             st.setInt(10, arac.getFiyat());
 
             st.executeUpdate();
@@ -128,7 +129,7 @@ public class AracDAO extends Dao {
             st.setInt(6, arac.getKilometre());
             st.setString(7, arac.getYakit());
             st.setString(8, arac.getVites());
-            st.setInt(9, arac.getFirmaid());
+            st.setLong(9, arac.getFirma().getFirmaid());
             st.setInt(10, arac.getFiyat());
             st.setInt(11, arac.getAracid());
             st.executeUpdate();
@@ -155,9 +156,9 @@ public class AracDAO extends Dao {
 
             while (rs.next()) {
                 Arac tmp;
-                tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"), rs.getInt("firmaid"));
+                tmp = new Arac(rs.getInt("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"));
 
-                tmp.setFirma(this.getFirmaDAO().find(rs.getInt("firmaid")));
+                tmp.setFirma(this.getFirmaDAO().find(rs.getLong("firmaid")));
                 clist.add(tmp);
             }
 
