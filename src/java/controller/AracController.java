@@ -16,7 +16,6 @@ public class AracController implements Serializable {
     private List<Arac> clist;
     private AracDAO adao;
     private FirmaDAO firmaDAO;
-    private Long FirmaSec;
     private List<Firma> firmaList;
 
     private int page = 1;
@@ -24,17 +23,19 @@ public class AracController implements Serializable {
     private int pageCount;
 
     public void next() {
-       if(this.page == this.getPageCount()){
-        this.page = 1;
-       }else
-           this.page++;
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
     }
 
     public void previous() {
         if (this.page == 1) {
             this.page = this.getPageCount();
-        }else 
+        } else {
             this.page--;
+        }
     }
 
     public int getPage() {
@@ -68,8 +69,7 @@ public class AracController implements Serializable {
     private Arac arac;
 
     public void updateForm(Arac arac) {
-        this.FirmaSec = new Long(arac.getFirmaid());
-        this.arac = arac;//Guncellemek istedigimiz nesneyi araccontroller bean nin arac nesnesine atama islemini yaptik.
+        this.arac = arac;
     }
 
     public void clearForm() {
@@ -87,16 +87,16 @@ public class AracController implements Serializable {
 
     public void delete() {
         this.getAdao().delete(this.arac);
-        clearForm();
+        this.arac = new Arac();
+        this.clearForm();
     }
 
     public void modify() {
-        this.arac.setFirmaid(FirmaSec.intValue());
         this.getAdao().update(this.arac);
+        this.clearForm();
     }
 
     public void create() {
-        this.arac.setFirmaid(FirmaSec.intValue());
         this.getAdao().create(this.arac);
         clearForm();
     }
@@ -130,14 +130,6 @@ public class AracController implements Serializable {
 
     public void setArac(Arac arac) {
         this.arac = arac;
-    }
-
-    public Long getFirmaSec() {
-        return FirmaSec;
-    }
-
-    public void setFirmaSec(Long FirmaSec) {
-        this.FirmaSec = FirmaSec;
     }
 
     public FirmaDAO getFirmaDAO() {

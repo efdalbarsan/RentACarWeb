@@ -5,8 +5,8 @@
  */
 package Converter;
 
-import dao.SehirDAO;
-import entity.Sehir;
+import dao.FirmaDAO;
+import entity.Firma;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -14,31 +14,33 @@ import javax.faces.convert.FacesConverter;
 
 /**
  *
- * @author BARSAN
+ * @author Barsan
  */
-@FacesConverter(value="SehirConverter")
-public class SehirConverter implements Converter{
+@FacesConverter("FirmaConverter")
+public class FirmaConverter implements Converter{
 
-    private SehirDAO sehirDAO;
+    private FirmaDAO firmaDAO;
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return this.getSehirDAO().find(Long.valueOf(value));
+        return this.getFirmaDAO().find(Integer.valueOf(value));
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object arg2) {
-        Sehir t=(Sehir) arg2;
-        return t.getSehir_id().toString();
+        Firma t = (Firma) arg2;
+        return t.getFirmaid().toString();
     }
 
-    public SehirDAO getSehirDAO() {
-        if (this.sehirDAO==null) 
-            this.sehirDAO=new SehirDAO();
-        return sehirDAO;
+    public FirmaDAO getFirmaDAO() {
+        if (this.firmaDAO == null) {
+            firmaDAO = new FirmaDAO();
+        }
+        return firmaDAO;
     }
 
-    public void setSehirDAO(SehirDAO sehirDAO) {
-        this.sehirDAO = sehirDAO;
+    public void setFirmaDAO(FirmaDAO firmaDAO) {
+        this.firmaDAO = firmaDAO;
     }
-    
+
 }

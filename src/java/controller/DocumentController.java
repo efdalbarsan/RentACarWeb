@@ -31,7 +31,7 @@ public class DocumentController implements Serializable{
     
     private Part doc;
     
-    private final String uploadTo ="/Users/Barsan/Desktop/Java/UploadOne/";
+    private final String uploadTo ="/Users/Barsan/Desktop/RentACar-master/UploadOne/";
     
     public void upload(){
         try{
