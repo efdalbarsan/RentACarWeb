@@ -18,8 +18,8 @@ public class FirmaDAO extends Dao {
 
         int start = (page - 1) * pageSize;
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from firma order by firmaid asc limit " + pageSize + " offset " + start); 
+            PreparedStatement st = getConn().prepareStatement("select * from firma order by firmaid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {
                 Firma tmp=new Firma();            
@@ -55,8 +55,8 @@ public class FirmaDAO extends Dao {
     public Firma find(Long firmaid) {
         Firma f = null;
         try {
-            Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from firma where firmaid=" + firmaid); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from firma where firmaid=" + firmaid);    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
             rs.next();
 
             f = new Firma();
@@ -153,8 +153,8 @@ public class FirmaDAO extends Dao {
 
         
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from firma"); 
+            PreparedStatement st = getConn().prepareStatement("select * from firma");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {
                 Firma tmp=new Firma();            
