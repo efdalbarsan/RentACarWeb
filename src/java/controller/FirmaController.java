@@ -13,7 +13,8 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class FirmaController implements Serializable {
-@Inject
+
+    @Inject
     private SehirController sehirController;
 
     private List<Firma> clist;
@@ -94,6 +95,7 @@ public class FirmaController implements Serializable {
 
     public void modify() {
         this.getFirmaDAO().update(this.firma);
+        clearForm();
     }
 
     public void create() {
@@ -102,7 +104,7 @@ public class FirmaController implements Serializable {
     }
 
     public List<Firma> getClist() {
-        this.clist = this.getFirmaDAO().read(page,pageSize);
+        this.clist = this.getFirmaDAO().read(page, pageSize);
         return this.clist;
     }
 
@@ -149,15 +151,15 @@ public class FirmaController implements Serializable {
     }
 
     public SehirDAO getSdao() {
-        if(this.sdao == null){
+        if (this.sdao == null) {
             this.sdao = new SehirDAO();
         }
         return sdao;
     }
- public List<Firma> getCilist() {
+
+    public List<Firma> getCilist() {
         this.clist = this.getFirmaDAO().read();
         return this.clist;
     }
-
 
 }
