@@ -21,9 +21,9 @@ public class SehirDAO extends Dao {
         int start = (page - 1) * pageSize;
 
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from sehir order by sehir_id asc limit " + pageSize + " offset " + start);
-
+            PreparedStatement st = this.getConn().prepareStatement("select * from sehir order by sehir_id asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery();
+            
             while (rs.next()) {
                 Sehir tmp = new Sehir();
                 tmp.setSehir_id(rs.getLong("sehir_id"));
@@ -42,7 +42,6 @@ public class SehirDAO extends Dao {
     public int count() {
         int count = 0;
         
-
         try {
             PreparedStatement st = getConn().prepareStatement("select count(sehir_id) as sehir_count from sehir");
             ResultSet rs = st.executeQuery();
@@ -102,8 +101,8 @@ public class SehirDAO extends Dao {
     public Sehir find(Long sehir_id) {
         Sehir s = null;
         try {
-            Statement st = this.getConn().createStatement();
-            ResultSet rs = st.executeQuery("select * from sehir where sehir_id = " + sehir_id);
+            PreparedStatement st = this.getConn().prepareStatement("select * from sehir where sehir_id = " + sehir_id);
+            ResultSet rs = st.executeQuery();
             rs.next();
 
             s = new Sehir();
@@ -119,8 +118,8 @@ public class SehirDAO extends Dao {
         List<Sehir> firmaSehir = new ArrayList<>();
         System.out.println(firmaid + "-------------------------------firmaid");
         try {
-            Statement st = this.getConn().createStatement();
-            ResultSet rs = st.executeQuery("select * from firma_sehir where firmaid =" + firmaid);
+            PreparedStatement st = this.getConn().prepareStatement("select * from firma_sehir where firmaid =" + firmaid);
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 firmaSehir.add(this.find(rs.getLong("sehir_id")));
                 System.out.println(this.find(rs.getLong("sehir_id")).toString() + "---------------");
@@ -137,8 +136,8 @@ public class SehirDAO extends Dao {
         List<Sehir> clist = new ArrayList();
 
         try {
-            Statement st = this.getConn().createStatement();
-            ResultSet rs = st.executeQuery("select * from sehir ");
+            PreparedStatement st = this.getConn().prepareStatement("select * from sehir");
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 Sehir tmp = new Sehir();
