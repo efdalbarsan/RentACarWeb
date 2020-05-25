@@ -18,17 +18,16 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class SehirController implements Serializable{
-     private List<Sehir> clist;
-     private SehirDAO adao;
-     
-    
+public class SehirController implements Serializable {
+
+    private List<Sehir> clist;
+    private SehirDAO adao;
+
     private int page = 1;
     private int pageSize = 5;
     private int pageCount;
-    
-    
-     public void next() {
+
+    public void next() {
         if (this.page == this.getPageCount()) {
             this.page = 1;
         } else {
@@ -68,7 +67,7 @@ public class SehirController implements Serializable{
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
-    
+
     public SehirController() {
     }
 
@@ -79,13 +78,14 @@ public class SehirController implements Serializable{
     }
 
     public void clearForm() {
-        this.sehir = new Sehir();        
+        this.sehir = new Sehir();
     }
-    public String index(){
+
+    public String index() {
         clearForm();
         return "index";
     }
-   
+
     public void deleteConfirm(Sehir sehir) {
         this.sehir = sehir;
     }
@@ -95,9 +95,9 @@ public class SehirController implements Serializable{
         clearForm();
     }
 
-   public void modify() {
-        
+    public void modify() {
         this.getAdao().update(this.sehir);
+        clearForm();
     }
 
     public void create() {
@@ -115,14 +115,17 @@ public class SehirController implements Serializable{
     public void setSehir(Sehir sehir) {
         this.sehir = sehir;
     }
+
     public List<Sehir> getClist() {
-        this.clist = this.getAdao().read(page,pageSize);
+        this.clist = this.getAdao().read(page, pageSize);
         return this.clist;
     }
-public List<Sehir> getCilist() {
+
+    public List<Sehir> getCilist() {
         this.clist = this.getAdao().read();
         return this.clist;
     }
+
     public void setClist(List<Sehir> clist) {
         this.clist = clist;
     }
@@ -138,7 +141,4 @@ public List<Sehir> getCilist() {
         this.adao = adao;
     }
 
-
-   
-   
 }
