@@ -93,6 +93,7 @@ public class HasarKaydiController implements Serializable {
     public void modify() {
         this.hasarKaydi.setAracid(aracSec.intValue());
         this.getHasarKaydiDAO().update(this.hasarKaydi);
+        clearForm();
     }
 
     public void create() {

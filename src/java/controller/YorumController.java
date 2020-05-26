@@ -101,6 +101,7 @@ public class YorumController implements Serializable {
         this.yorum.setAracid(AracSec.intValue());
         this.yorum.setKullaniciid(KullaniciSec.intValue());
         this.getYorumDAO().update(this.yorum);
+        clearForm();
     }
 
     public void create() {

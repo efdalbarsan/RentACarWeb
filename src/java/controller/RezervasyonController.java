@@ -102,6 +102,7 @@ public class RezervasyonController implements Serializable {
         this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().update(this.rezervasyon);
+        clearForm();
     }
 
     public void create() {
