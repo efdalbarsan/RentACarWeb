@@ -17,8 +17,8 @@ public class YorumDAO extends Dao {
         List<Yorum> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from yorum order by yorumid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from yorum order by yorumid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Yorum tmp;
@@ -117,8 +117,8 @@ public class YorumDAO extends Dao {
         List<Yorum> clist = new ArrayList();
         
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from yorum"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from yorum");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Yorum tmp;
