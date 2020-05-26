@@ -18,8 +18,8 @@ public class RezervasyonDAO extends Dao {
         int start = (page - 1) * pageSize;
 
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from rezervasyon order by rezervasyonid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from rezervasyon order by rezervasyonid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Rezervasyon tmp;
@@ -122,8 +122,8 @@ public class RezervasyonDAO extends Dao {
         List<Rezervasyon> clist = new ArrayList();
 
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from rezervasyon"); //executeQuery veritabanindan veri cekme islemini yapar. 
+             PreparedStatement st = this.getConn().prepareStatement("select * from rezervasyon");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Rezervasyon tmp;
