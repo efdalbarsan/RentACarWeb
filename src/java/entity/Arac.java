@@ -2,7 +2,7 @@ package entity;
 
 public class Arac {
 
-    private int aracid;
+    private Long aracid;
     private String plaka;
     private String marka;
     private String model;
@@ -13,12 +13,11 @@ public class Arac {
     private String vites;
     private int fiyat;
     private Firma firma;
-    
 
     public Arac() {
     }
 
-    public Arac(int aracid, String plaka, String marka, String model, double motor, int yil, int kilometre, String yakit, String vites, int fiyat) {
+    public Arac(Long aracid, String plaka, String marka, String model, double motor, int yil, int kilometre, String yakit, String vites, int fiyat) {
         this.aracid = aracid;
         this.plaka = plaka;
         this.marka = marka;
@@ -28,23 +27,23 @@ public class Arac {
         this.kilometre = kilometre;
         this.yakit = yakit;
         this.vites = vites;
-        this.fiyat =fiyat;
-     
+        this.fiyat = fiyat;
+
     }
-    public void setFirma(Firma firma){
+
+    public void setFirma(Firma firma) {
         this.firma = firma;
     }
 
     public Firma getFirma() {
         return firma;
     }
-    
 
-    public int getAracid() {
+    public Long getAracid() {
         return aracid;
     }
 
-    public void setAracid(int aracid) {
+    public void setAracid(Long aracid) {
         this.aracid = aracid;
     }
 
@@ -120,13 +119,9 @@ public class Arac {
         this.fiyat = fiyat;
     }
 
-   
-
     @Override
     public String toString() {
-        return "Arac{" + "aracid= " + aracid + ", plaka= " + plaka + ", marka= " + marka + ", model= " + model + ", motor= " + motor + ", yil= " + yil + ", kilometre= " + kilometre + ", yakit= " + yakit + ", vites= " + vites + ", fiyat= " + fiyat +  '}';
+        return "Arac{" + "aracid= " + aracid + ", plaka= " + plaka + ", marka= " + marka + ", model= " + model + ", motor= " + motor + ", yil= " + yil + ", kilometre= " + kilometre + ", yakit= " + yakit + ", vites= " + vites + ", fiyat= " + fiyat + '}';
     }
-
-
 
 }
