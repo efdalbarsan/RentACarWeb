@@ -21,7 +21,7 @@ public class KullaniciDAO extends Dao {
 
             while (rs.next()) {
                 Kullanici tmp;
-                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"),rs.getString("telefon"), rs.getString("adres"));
+                tmp = new Kullanici(rs.getLong("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"),rs.getString("telefon"), rs.getString("adres"));
 
                 tmp.setGrup(this.getGrupDAO().find(rs.getLong("grupid")));
                 clist.add(tmp);//Her yeni kullanicii listeme ekliyorum
@@ -57,7 +57,7 @@ public class KullaniciDAO extends Dao {
             rs.next();
 
             k = new Kullanici();
-            k.setKullaniciid(rs.getInt("kullaniciid"));
+            k.setKullaniciid(rs.getLong("kullaniciid"));
             k.setEmail(rs.getString("email"));
             k.setKullaniciadi(rs.getString("kullaniciadi"));
             k.setSifre(rs.getString("sifre"));
@@ -97,7 +97,7 @@ public class KullaniciDAO extends Dao {
         String q = "delete from kullanici where kullaniciid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, kullanici.getKullaniciid());
+            st.setLong(1, kullanici.getKullaniciid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -118,7 +118,7 @@ public class KullaniciDAO extends Dao {
             st.setLong(4, kullanici.getGrup().getGrupid());
             st.setString(5, kullanici.getTelefon());
             st.setString(6, kullanici.getAdres());
-            st.setInt(7, kullanici.getKullaniciid());
+            st.setLong(7, kullanici.getKullaniciid());
 
             st.executeUpdate();
 
@@ -138,7 +138,7 @@ public class KullaniciDAO extends Dao {
 
             while (rs.next()) {
 
-                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getString("telefon"), rs.getString("adres"));
+                tmp = new Kullanici(rs.getLong("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getString("telefon"), rs.getString("adres"));
                 tmp.setGrup(this.getGrupDAO().find(rs.getLong("grupid")));
 
             }
@@ -157,7 +157,7 @@ public class KullaniciDAO extends Dao {
 
             while (rs.next()) {
                 Kullanici tmp;
-                tmp = new Kullanici(rs.getInt("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getString("telefon"), rs.getString("adres"));
+                tmp = new Kullanici(rs.getLong("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getString("telefon"), rs.getString("adres"));
 
                 tmp.setGrup(this.getGrupDAO().find(rs.getLong("grupid")));
                 clist.add(tmp);//Her yeni kullanicii listeme ekliyorum

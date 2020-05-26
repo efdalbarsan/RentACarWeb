@@ -1,18 +1,19 @@
 package entity;
 
 public class Kullanici {
-    private int kullaniciid;
+
+    private Long kullaniciid;
     private String email;
     private String kullaniciadi;
     private String sifre;
     private String telefon;
     private String adres;
     private Grup grup;
-    
+
     public Kullanici() {
     }
 
-    public Kullanici(int kullaniciid, String email, String kullaniciadi, String sifre, String telefon, String adres) {
+    public Kullanici(Long kullaniciid, String email, String kullaniciadi, String sifre, String telefon, String adres) {
         this.kullaniciid = kullaniciid;
         this.email = email;
         this.kullaniciadi = kullaniciadi;
@@ -21,12 +22,11 @@ public class Kullanici {
         this.adres = adres;
     }
 
-
-    public int getKullaniciid() {
+    public Long getKullaniciid() {
         return kullaniciid;
     }
 
-    public void setKullaniciid(int kullaniciid) {
+    public void setKullaniciid(Long kullaniciid) {
         this.kullaniciid = kullaniciid;
     }
 
@@ -82,9 +82,5 @@ public class Kullanici {
     public String toString() {
         return "Kullanici{" + "kullaniciid=" + kullaniciid + ", email=" + email + ", kullaniciadi=" + kullaniciadi + ", sifre=" + sifre + ", telefon=" + telefon + ", adres=" + adres + ", grup=" + grup + '}';
     }
-    
 
-
-
-        
 }
