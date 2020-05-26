@@ -4,7 +4,6 @@ import entity.HasarKaydi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,8 @@ public class HasarKaydiDAO extends Dao {
         List<HasarKaydi> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from hasarkaydi order by hasarid asc limit " + pageSize + " offset " + start);
+            PreparedStatement st = getConn().prepareStatement("select * from hasarkaydi order by hasarid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 HasarKaydi tmp;
@@ -112,8 +111,8 @@ public class HasarKaydiDAO extends Dao {
         List<HasarKaydi> clist = new ArrayList();
 
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from hasarkaydi");
+            PreparedStatement st = getConn().prepareStatement("select * from hasarkaydi");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 HasarKaydi tmp;
