@@ -16,8 +16,8 @@ public class KullaniciDAO extends Dao {
         List<Kullanici> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from kullanici order by kullaniciid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from kullanici order by kullaniciid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Kullanici tmp;
@@ -52,8 +52,8 @@ public class KullaniciDAO extends Dao {
         Kullanici k = null;
 
         try {
-            Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from kullanici where kullaniciid=" + kullaniciid); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from kullanici where kullaniciid=" + kullaniciid);    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
             rs.next();
 
             k = new Kullanici();
@@ -152,8 +152,8 @@ public class KullaniciDAO extends Dao {
     public List read() {
         List<Kullanici> clist = new ArrayList();
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from kullanici"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = this.getConn().prepareStatement("select * from kullanici");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Kullanici tmp;
