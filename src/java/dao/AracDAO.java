@@ -17,8 +17,8 @@ public class AracDAO extends Dao {
 
         int start = (page - 1) * pageSize;
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from arac order by aracid asc limit " + pageSize + " offset " + start); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from arac order by aracid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Arac tmp;
@@ -53,8 +53,8 @@ public class AracDAO extends Dao {
         Arac a = null;
 
         try {
-            Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from arac where aracid=" + aracid); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from arac where aracid=" + aracid);    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
             rs.next();
 
             a = new Arac();
@@ -151,8 +151,8 @@ public class AracDAO extends Dao {
 
         
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from arac"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from arac");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Arac tmp;
