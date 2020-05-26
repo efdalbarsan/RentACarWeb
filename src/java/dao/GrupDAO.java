@@ -14,8 +14,8 @@ public class GrupDAO extends Dao {
         List<Grup> clist = new ArrayList();
         
         try {
-            Statement st = this.getConn().createStatement();                    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from grup"); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from grup");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Grup tmp;
@@ -36,8 +36,8 @@ public class GrupDAO extends Dao {
         Grup g = null;
 
         try {
-            Statement st = this.getConn().createStatement();    //sorgulari statement uzerinden yapariz
-            ResultSet rs = st.executeQuery("select * from grup where grupid=" + grupid); //executeQuery veritabanindan veri cekme islemini yapar. 
+            PreparedStatement st = getConn().prepareStatement("select * from grup where grupid=" + grupid);    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
             rs.next();
 
             g = new Grup();
