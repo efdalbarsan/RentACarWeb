@@ -149,7 +149,7 @@ public class HasarKaydiController implements Serializable {
     }
 
     public List<Arac> getAracList() {
-        this.aracList = this.getAracDAO().read(page, pageSize);
+        this.aracList = this.getAracDAO().read();
         return aracList;
     }
 
