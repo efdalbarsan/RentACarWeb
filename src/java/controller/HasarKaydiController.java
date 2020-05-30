@@ -15,7 +15,6 @@ public class HasarKaydiController implements Serializable {
 
     private List<HasarKaydi> hasarKaydiList;
     private HasarKaydiDAO hasarKaydiDAO;
-    private Long aracSec;
     private AracDAO aracDAO;
     private List<Arac> aracList;
     private int page = 1;
@@ -128,14 +127,6 @@ public class HasarKaydiController implements Serializable {
 
     public void setHasarKaydiDAO(HasarKaydiDAO hasarKaydiDAO) {
         this.hasarKaydiDAO = hasarKaydiDAO;
-    }
-
-    public Long getAracSec() {
-        return aracSec;
-    }
-
-    public void setAracSec(Long aracSec) {
-        this.aracSec = aracSec;
     }
 
     public AracDAO getAracDAO() {

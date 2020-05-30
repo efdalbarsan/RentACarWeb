@@ -18,7 +18,6 @@ public class RezervasyonController implements Serializable {
 
     private List<Rezervasyon> rezervasyonList;
     private RezervasyonDAO rezervasyonDAO;
-    private Long AracSec;
     private Long KullaniciSec;
     private AracDAO aracDAO;
     private KullaniciDAO kullaniciDAO;
@@ -139,14 +138,6 @@ public class RezervasyonController implements Serializable {
 
     public void setRezervasyonDAO(RezervasyonDAO rezervasyonDAO) {
         this.rezervasyonDAO = rezervasyonDAO;
-    }
-
-    public Long getAracSec() {
-        return AracSec;
-    }
-
-    public void setAracSec(Long AracSec) {
-        this.AracSec = AracSec;
     }
 
     public Long getKullaniciSec() {

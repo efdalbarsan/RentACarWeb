@@ -17,7 +17,6 @@ public class YorumController implements Serializable {
 
     private List<Yorum> yorumList;
     private YorumDAO yorumDAO;
-    private Long AracSec;
     private Long KullaniciSec;
     private AracDAO aracDAO;
     private KullaniciDAO kullaniciDAO;
@@ -137,14 +136,6 @@ public class YorumController implements Serializable {
 
     public void setYorumDAO(YorumDAO yorumDAO) {
         this.yorumDAO = yorumDAO;
-    }
-
-    public Long getAracSec() {
-        return AracSec;
-    }
-
-    public void setAracSec(Long AracSec) {
-        this.AracSec = AracSec;
     }
 
     public Long getKullaniciSec() {
