@@ -13,7 +13,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 
-@FacesConverter("AracConverter")
+@FacesConverter(value="AracConverter")
 public class AracConverter implements Converter{
 
     private AracDAO aracDAO;
