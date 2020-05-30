@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class Arac {
 
     private Long aracid;
@@ -123,5 +125,32 @@ public class Arac {
     public String toString() {
         return "Arac{" + "aracid= " + aracid + ", plaka= " + plaka + ", marka= " + marka + ", model= " + model + ", motor= " + motor + ", yil= " + yil + ", kilometre= " + kilometre + ", yakit= " + yakit + ", vites= " + vites + ", fiyat= " + fiyat + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.aracid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Arac other = (Arac) obj;
+        if (!Objects.equals(this.aracid, other.aracid)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
 }
