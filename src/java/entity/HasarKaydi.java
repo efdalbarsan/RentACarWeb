@@ -5,36 +5,30 @@ import java.util.Objects;
 
 
 public class HasarKaydi {
-    private int hasarid;
-    private int aracid;
+    private Long hasarid;
     private String boya;
     private String cizik;
     private String degisim;
     private String aciklama;
-    private HasarKaydi hasarKaydi;
-    private Long aracid;
-    private List<Arac> hasarkaydiArac;
+    private Arac arac;
 
     public HasarKaydi() {
     }
 
-    public HasarKaydi(int hasarid, Long aracid, String boya, String cizik, String degisim, String aciklama, HasarKaydi hasarKaydi, List<Arac> hasarkaydiArac) {
+    public HasarKaydi(Long hasarid, String boya, String cizik, String degisim, String aciklama) {
         this.hasarid = hasarid;
-        this.aracid = aracid;
         this.boya = boya;
         this.cizik = cizik;
         this.degisim = degisim;
         this.aciklama = aciklama;
-        this.hasarKaydi = hasarKaydi;
-        this.hasarkaydiArac = hasarkaydiArac;
     }
 
 
-    public int getHasarid() {
+    public Long getHasarid() {
         return hasarid;
     }
 
-    public void setHasarid(int hasarid) {
+    public void setHasarid(Long hasarid) {
         this.hasarid = hasarid;
     }
 
@@ -71,36 +65,19 @@ public class HasarKaydi {
         this.aciklama = aciklama;
         
     }
+
+    public Arac getArac() {
+        return arac;
+    }
+
+    public void setArac(Arac arac) {
+        this.arac = arac;
+    }
+  
     
-    public Long getAracid() {
-        return aracid;
-    }
-
-    public void setAracid(Long aracid) {
-        this.aracid = aracid;
-    }
-
-    public HasarKaydi getHasarKaydi() {
-        return hasarKaydi;
-    }
-
-    public void setHasarKaydi(HasarKaydi hasarKaydi) {
-        this.hasarKaydi = hasarKaydi;
-    }
-
-    public List<Arac> getHasarkaydiArac() {
-        return hasarkaydiArac;
-    }
-
-    public void setHasarkaydiArac(List<Arac> hasarkaydiArac) {
-        this.hasarkaydiArac = hasarkaydiArac;
-    }
-
-    
-
     @Override
     public String toString() {
-        return "HasarKaydi{" + "hasarid=" + hasarid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + ", aracid=" + aracid + '}';
+        return "HasarKaydi{" + "hasarid=" + hasarid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + ", arac=" + arac + '}';
     }
     
 
