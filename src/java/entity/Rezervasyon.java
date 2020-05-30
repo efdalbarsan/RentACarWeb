@@ -1,90 +1,144 @@
-package entity;
+package dao;
 
-import java.sql.Date;
+import entity.Rezervasyon;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Rezervasyon {
-    private int rezervasyonid;
-    private int kullaniciid;
-    private String aciklama;
-    private Date tarih;
-    private String tempDate;
-    private Kullanici kullanici;
-    private Arac arac;
+public class RezervasyonDAO extends Dao {
 
-    public Rezervasyon() {
+    private KullaniciDAO kullaniciDAO;
+    private AracDAO aracDAO;
+
+    public List read(int page, int pageSize) {
+        List<Rezervasyon> clist = new ArrayList();
+        int start = (page - 1) * pageSize;
+
+        try {
+            PreparedStatement st = getConn().prepareStatement("select * from rezervasyon order by rezervasyonid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Rezervasyon tmp;
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp.setTempDate(String.valueOf(tmp.getTarih()));
+
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
     }
 
-    public Rezervasyon(int rezervasyonid, int musteriid, String aciklama, Date tarih) {
-        this.rezervasyonid = rezervasyonid;
-        this.kullaniciid = musteriid;
-        this.aciklama = aciklama;
-        this.tarih = tarih;
-    }
+    public int count() {
+        int count = 0;
 
-    public String getTempDate() {
-        return tempDate;
-    }
-
-    public void setTempDate(String tempDate) {
-        this.tempDate = tempDate;
-    }
-    
-
-    public int getRezervasyonid() {
-        return rezervasyonid;
-    }
-
-    public void setRezervasyonid(int rezervasyonid) {
-        this.rezervasyonid = rezervasyonid;
-    }
-
-
-    public int getKullaniciid() {
-        return kullaniciid;
-    }
-
-    public void setKullaniciid(int kullaniciid) {
-        this.kullaniciid = kullaniciid;
-    }
-
-
-    public String getAciklama() {
-        return aciklama;
-    }
-
-    public void setAciklama(String aciklama) {
-        this.aciklama = aciklama;
-    }
-
-    public Date getTarih() {
-        return tarih;
-    }
-
-    public void setTarih(Date tarih) {
-        this.tarih = tarih;
-    }
-
-    public Kullanici getKullanici() {
-        return kullanici;
-    }
-
-    public void setKullanici(Kullanici kullanici) {
-        this.kullanici = kullanici;
-    }
-
-    public Arac getArac() {
-        return arac;
-    }
-
-    public void setArac(Arac arac) {
-        this.arac = arac;
+        try {
+            PreparedStatement st = getConn().prepareStatement("select count(rezervasyonid) as rezervasyon_count from rezervasyon");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            count = rs.getInt("rezervasyon_count");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return count;
     }
 
     @Override
-    public String toString() {
-        return "Rezervasyon{" + "rezervasyonid=" + rezervasyonid + ", kullaniciid=" + kullaniciid + ", aciklama=" + aciklama + ", tarih=" + tarih + ", tempDate=" + tempDate + ", kullanici=" + kullanici + ", arac=" + arac + '}';
+    public void create(Object obj) {
+        Rezervasyon rezervasyon = (Rezervasyon) obj;
+        String q = "insert into rezervasyon(aracid,kullaniciid,aciklama,tarih) values (?,?,?,?)";
+        try {
+            PreparedStatement st = this.getConn().prepareStatement(q);
+            st.setLong(1, rezervasyon.getArac().getAracid());
+            st.setInt(2, rezervasyon.getKullaniciid());
+            st.setString(3, rezervasyon.getAciklama());
+            st.setDate(4, rezervasyon.getTarih());
+
+            st.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
-    
-    
-    
+
+    @Override
+    public void delete(Object obj) {
+        Rezervasyon rezervasyon = (Rezervasyon) obj;
+        String q = "delete from rezervasyon where rezervasyonid = ?";
+        try {
+            PreparedStatement st = getConn().prepareStatement(q);
+            st.setInt(1, rezervasyon.getRezervasyonid());
+            st.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void update(Object obj) {
+        Rezervasyon rezervasyon = (Rezervasyon) obj;
+        String q = "update rezervasyon set aracid=?,kullaniciid=?,aciklama=?,tarih=? where rezervasyonid = ?";
+        System.out.println(rezervasyon.toString());
+        try {
+            PreparedStatement st = this.getConn().prepareStatement(q);
+            st.setLong(1, rezervasyon.getArac().getAracid());
+            st.setInt(2, rezervasyon.getKullaniciid());
+            st.setString(3, rezervasyon.getAciklama());
+            st.setDate(4, rezervasyon.getTarih());
+            st.setInt(5, rezervasyon.getRezervasyonid());
+
+            st.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public KullaniciDAO getKullaniciDAO() {
+        if (kullaniciDAO == null) {
+            kullaniciDAO = new KullaniciDAO();
+        }
+        return kullaniciDAO;
+    }
+
+    public AracDAO getAracDAO() {
+        if (aracDAO == null) {
+            aracDAO = new AracDAO();
+        }
+        return aracDAO;
+    }
+
+    public List read() {
+        List<Rezervasyon> clist = new ArrayList();
+
+        try {
+             PreparedStatement st = this.getConn().prepareStatement("select * from rezervasyon");                    //sorgulari statement uzerinden yapariz
+            ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
+
+            while (rs.next()) {
+                Rezervasyon tmp;
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp.setTempDate(String.valueOf(tmp.getTarih()));
+
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clist;
+    }
 }
