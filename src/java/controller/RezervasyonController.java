@@ -74,7 +74,6 @@ public class RezervasyonController implements Serializable {
     private Rezervasyon rezervasyon;
 
     public void updateForm(Rezervasyon rezervasyon) {
-        this.AracSec =new Long(rezervasyon.getAracid());
         this.KullaniciSec =new Long(rezervasyon.getKullaniciid());
         this.rezervasyon = rezervasyon;
     }
@@ -98,7 +97,6 @@ public class RezervasyonController implements Serializable {
     }
 
     public void modify() {
-        this.rezervasyon.setAracid(AracSec.intValue());
         this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().update(this.rezervasyon);
@@ -106,7 +104,6 @@ public class RezervasyonController implements Serializable {
     }
 
     public void create() {
-        this.rezervasyon.setAracid(AracSec.intValue());
         this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().create(this.rezervasyon);
