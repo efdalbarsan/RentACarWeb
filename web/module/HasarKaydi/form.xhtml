@@ -9,7 +9,7 @@
         <div class="form-inline">
             <div class="form-inline">
                 <label for="inputaracplaka">ARAC PLAKA</label>
-                <h:selectOneMenu styleClass="custom-select" id="aracSec" value="#{hasarKaydiController.hasarKaydi.arac}">
+                <h:selectOneMenu styleClass="custom-select" id="aracSec" value="#{hasarKaydiController.hasarKaydi.arac}" converter="AracConverter">
                     <f:selectItems value="#{hasarKaydiController.aracList}" var="arac" itemValue="#{arac}" itemLabel="#{arac.plaka}"/>
                 </h:selectOneMenu>
             </div>

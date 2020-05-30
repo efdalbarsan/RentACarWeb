@@ -49,7 +49,7 @@ public class AracDAO extends Dao {
         return count;
     }
 
-    public Arac find(int aracid) {
+    public Arac find(Long aracid) {
         Arac a = null;
 
         try {

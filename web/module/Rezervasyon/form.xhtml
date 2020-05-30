@@ -8,7 +8,7 @@
         <div class="form-inline">
             <h:inputHidden value="#{rezervasyonController.rezervasyon.rezervasyonid}"/>
             <label for="inputAracId">ARAC PLAKA</label>
-            <h:selectOneMenu styleClass="custom-select" id ="aracSec" value="#{rezervasyonController.rezervasyon.arac}">
+            <h:selectOneMenu styleClass="custom-select" id ="aracSec" value="#{rezervasyonController.rezervasyon.arac}" converter="AracConverter">
                 <f:selectItems value="#{rezervasyonController.aracList}" var="arac" itemValue="#{arac}" itemLabel="#{arac.plaka}"/>
             </h:selectOneMenu> 
         </div>

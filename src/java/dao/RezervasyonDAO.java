@@ -23,7 +23,7 @@ public class RezervasyonDAO extends Dao {
 
             while (rs.next()) {
                 Rezervasyon tmp;
-                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"),rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
@@ -58,7 +58,7 @@ public class RezervasyonDAO extends Dao {
         String q = "insert into rezervasyon(aracid,kullaniciid,aciklama,tarih) values (?,?,?,?)";
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
-            st.setInt(1, rezervasyon.getAracid());
+            st.setLong(1, rezervasyon.getArac().getAracid());
             st.setInt(2, rezervasyon.getKullaniciid());
             st.setString(3, rezervasyon.getAciklama());
             st.setDate(4, rezervasyon.getTarih());
@@ -91,7 +91,7 @@ public class RezervasyonDAO extends Dao {
         System.out.println(rezervasyon.toString());
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
-            st.setInt(1, rezervasyon.getAracid());
+            st.setLong(1, rezervasyon.getArac().getAracid());
             st.setInt(2, rezervasyon.getKullaniciid());
             st.setString(3, rezervasyon.getAciklama());
             st.setDate(4, rezervasyon.getTarih());
@@ -127,7 +127,7 @@ public class RezervasyonDAO extends Dao {
 
             while (rs.next()) {
                 Rezervasyon tmp;
-                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
