@@ -4,7 +4,6 @@ public class Yorum {
 
     private int yorumid;
     private int kullaniciid;
-    private int aracid;
     private String yorum;
     private Kullanici kullanici;
     private Arac arac;
@@ -15,7 +14,6 @@ public class Yorum {
     public Yorum(int yorumid, int kullaniciid, int aracid, String yorum) {
         this.yorumid = yorumid;
         this.kullaniciid = kullaniciid;
-        this.aracid = aracid;
         this.yorum = yorum;
     }
 
@@ -35,13 +33,6 @@ public class Yorum {
         this.kullaniciid = kullaniciid;
     }
 
-    public int getAracid() {
-        return aracid;
-    }
-
-    public void setAracid(int aracid) {
-        this.aracid = aracid;
-    }
 
     public String getYorum() {
         return yorum;
@@ -69,7 +60,7 @@ public class Yorum {
 
     @Override
     public String toString() {
-        return "Yorum{" + "yorumid=" + yorumid + ", kullaniciid=" + kullaniciid + ", aracid=" + aracid + ", yorum=" + yorum + ", kullanici=" + kullanici + ", arac=" + arac + '}';
+        return "Yorum{" + "yorumid=" + yorumid + ", kullaniciid=" + kullaniciid + ", yorum=" + yorum + ", kullanici=" + kullanici + ", arac=" + arac + '}';
     }
 
 
