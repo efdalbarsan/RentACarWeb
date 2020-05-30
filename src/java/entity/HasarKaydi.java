@@ -1,5 +1,8 @@
 package entity;
 
+import java.util.List;
+import java.util.Objects;
+
 
 public class HasarKaydi {
     private int hasarid;
@@ -8,19 +11,24 @@ public class HasarKaydi {
     private String cizik;
     private String degisim;
     private String aciklama;
-    private Arac arac;
+    private HasarKaydi hasarKaydi;
+    private Long aracid;
+    private List<Arac> hasarkaydiArac;
 
     public HasarKaydi() {
     }
 
-    public HasarKaydi(int hasarid, int aracid, String boya, String cizik, String degisim, String aciklama) {
+    public HasarKaydi(int hasarid, Long aracid, String boya, String cizik, String degisim, String aciklama, HasarKaydi hasarKaydi, List<Arac> hasarkaydiArac) {
         this.hasarid = hasarid;
         this.aracid = aracid;
         this.boya = boya;
         this.cizik = cizik;
         this.degisim = degisim;
         this.aciklama = aciklama;
+        this.hasarKaydi = hasarKaydi;
+        this.hasarkaydiArac = hasarkaydiArac;
     }
+
 
     public int getHasarid() {
         return hasarid;
@@ -30,13 +38,6 @@ public class HasarKaydi {
         this.hasarid = hasarid;
     }
 
-    public int getAracid() {
-        return aracid;
-    }
-
-    public void setAracid(int aracid) {
-        this.aracid = aracid;
-    }
 
     public String getBoya() {
         return boya;
@@ -68,19 +69,38 @@ public class HasarKaydi {
 
     public void setAciklama(String aciklama) {
         this.aciklama = aciklama;
+        
+    }
+    
+    public Long getAracid() {
+        return aracid;
     }
 
-    public Arac getArac() {
-        return arac;
+    public void setAracid(Long aracid) {
+        this.aracid = aracid;
     }
 
-    public void setArac(Arac arac) {
-        this.arac = arac;
+    public HasarKaydi getHasarKaydi() {
+        return hasarKaydi;
     }
+
+    public void setHasarKaydi(HasarKaydi hasarKaydi) {
+        this.hasarKaydi = hasarKaydi;
+    }
+
+    public List<Arac> getHasarkaydiArac() {
+        return hasarkaydiArac;
+    }
+
+    public void setHasarkaydiArac(List<Arac> hasarkaydiArac) {
+        this.hasarkaydiArac = hasarkaydiArac;
+    }
+
+    
 
     @Override
     public String toString() {
-        return "HasarKaydi{" + "hasarid=" + hasarid + ", aracid=" + aracid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + ", arac=" + arac + '}';
+        return "HasarKaydi{" + "hasarid=" + hasarid + ", boya=" + boya + ", cizik=" + cizik + ", degisim=" + degisim + ", aciklama=" + aciklama + ", aracid=" + aracid + '}';
     }
     
 
