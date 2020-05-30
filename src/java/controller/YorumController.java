@@ -74,7 +74,6 @@ public class YorumController implements Serializable {
     private Yorum yorum;
 
     public void updateForm(Yorum yorum) {
-        this.AracSec = new Long(yorum.getAracid());
         this.KullaniciSec = new Long(yorum.getKullaniciid());
         this.yorum = yorum;
     }
@@ -98,7 +97,6 @@ public class YorumController implements Serializable {
     }
 
     public void modify() {
-        this.yorum.setAracid(AracSec.intValue());
         this.yorum.setKullaniciid(KullaniciSec.intValue());
         this.getYorumDAO().update(this.yorum);
         clearForm();
@@ -106,7 +104,6 @@ public class YorumController implements Serializable {
 
     public void create() {
         this.yorum.setKullaniciid(KullaniciSec.intValue());
-        this.yorum.setAracid(AracSec.intValue());
         this.getYorumDAO().create(this.yorum);
         clearForm();
     }
