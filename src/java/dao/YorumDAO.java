@@ -25,7 +25,7 @@ public class YorumDAO extends Dao {
                 tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getInt("aracid"), rs.getString("yorum"));
 
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
-                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 clist.add(tmp);//Her yeni yorumi listeme ekliyorum
 
             }
@@ -125,7 +125,7 @@ public class YorumDAO extends Dao {
                 tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getInt("aracid"), rs.getString("yorum"));
 
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
-                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 clist.add(tmp);//Her yeni yorumi listeme ekliyorum
 
             }
