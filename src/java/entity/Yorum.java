@@ -11,7 +11,7 @@ public class Yorum {
     public Yorum() {
     }
 
-    public Yorum(int yorumid, int kullaniciid, int aracid, String yorum) {
+    public Yorum(int yorumid, int kullaniciid, String yorum) {
         this.yorumid = yorumid;
         this.kullaniciid = kullaniciid;
         this.yorum = yorum;
