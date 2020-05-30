@@ -26,7 +26,7 @@ public class RezervasyonDAO extends Dao {
                 tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
 
-                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
 
@@ -130,7 +130,7 @@ public class RezervasyonDAO extends Dao {
                 tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("aracid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
 
-                tmp.setArac(this.getAracDAO().find(rs.getInt("aracid")));
+                tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
 
