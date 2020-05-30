@@ -9,9 +9,8 @@
         <div class="form-inline">
             <div class="form-inline">
                 <label for="inputaracplaka">ARAC PLAKA</label>
-                <h:inputHidden value="#{hasarKaydiController.hasarKaydi.hasarid}"/>
-                <h:selectOneMenu styleClass="custom-select" id="aracSec" value="#{hasarKaydiController.aracSec}">
-                    <f:selectItems value="#{hasarKaydiController.aracList}" var="arac" itemValue="#{arac.aracid}" itemLabel="#{arac.plaka}"/>
+                <h:selectOneMenu styleClass="custom-select" id="aracSec" value="#{hasarKaydiController.hasarKaydi.arac}">
+                    <f:selectItems value="#{hasarKaydiController.aracList}" var="arac" itemValue="#{arac}" itemLabel="#{arac.plaka}"/>
                 </h:selectOneMenu>
             </div>
             <label for="inputboya">BOYA</label>
