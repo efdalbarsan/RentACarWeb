@@ -4,6 +4,7 @@ import entity.HasarKaydi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class HasarKaydiDAO extends Dao {
 
             while (rs.next()) {
                 HasarKaydi tmp;
-                tmp = new HasarKaydi(rs.getInt("hasarid"), rs.getInt("aracid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
+                tmp = new HasarKaydi(rs.getLong("hasarid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 clist.add(tmp);//Her yeni hasarKaydii listeme ekliyorum
@@ -53,7 +54,7 @@ public class HasarKaydiDAO extends Dao {
         String q = "insert into hasarkaydi(aracid,boya,cizik,degisim,aciklama) values (?,?,?,?,?)";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, hasarKaydi.getAracid());
+            st.setLong(1, hasarKaydi.getArac().getAracid());
             st.setString(2, hasarKaydi.getBoya());
             st.setString(3, hasarKaydi.getCizik());
             st.setString(4, hasarKaydi.getDegisim());
@@ -72,7 +73,7 @@ public class HasarKaydiDAO extends Dao {
         String q = "delete from hasarkaydi where hasarid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, hasarKaydi.getHasarid());
+            st.setLong(1, hasarKaydi.getHasarid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -86,12 +87,12 @@ public class HasarKaydiDAO extends Dao {
         String q = "update hasarkaydi set aracid=?,boya=?,cizik=?,degisim=?,aciklama=? where hasarid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, hasarKaydi.getAracid());
+            st.setLong(1, hasarKaydi.getArac().getAracid());
             st.setString(2, hasarKaydi.getBoya());
             st.setString(3, hasarKaydi.getCizik());
             st.setString(4, hasarKaydi.getDegisim());
             st.setString(5, hasarKaydi.getAciklama());
-            st.setInt(6, hasarKaydi.getHasarid());
+            st.setLong(6, hasarKaydi.getHasarid());
 
             st.executeUpdate();
 
@@ -116,7 +117,7 @@ public class HasarKaydiDAO extends Dao {
 
             while (rs.next()) {
                 HasarKaydi tmp;
-                tmp = new HasarKaydi(rs.getInt("hasarid"), rs.getInt("aracid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
+                tmp = new HasarKaydi(rs.getLong("hasarid"), rs.getString("boya"), rs.getString("cizik"), rs.getString("degisim"), rs.getString("aciklama"));
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 clist.add(tmp);//Her yeni hasarKaydii listeme ekliyorum
