@@ -22,7 +22,7 @@ public class YorumDAO extends Dao {
 
             while (rs.next()) {
                 Yorum tmp;
-                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getInt("aracid"), rs.getString("yorum"));
+                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getString("yorum"));
 
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
@@ -57,7 +57,7 @@ public class YorumDAO extends Dao {
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, yorum.getKullaniciid());
-            st.setInt(2, yorum.getAracid());
+            st.setLong(2, yorum.getArac().getAracid());
             st.setString(3, yorum.getYorum());
 
             st.executeUpdate();
@@ -88,7 +88,7 @@ public class YorumDAO extends Dao {
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setInt(1, yorum.getKullaniciid());
-            st.setInt(2, yorum.getAracid());
+            st.setLong(2, yorum.getArac().getAracid());
             st.setString(3, yorum.getYorum());
             st.setInt(4, yorum.getYorumid());
 
@@ -122,7 +122,7 @@ public class YorumDAO extends Dao {
 
             while (rs.next()) {
                 Yorum tmp;
-                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getInt("aracid"), rs.getString("yorum"));
+                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getString("yorum"));
 
                 tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
