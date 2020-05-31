@@ -1,9 +1,10 @@
 package entity;
 
+import java.util.Objects;
+
 public class Yorum {
 
-    private int yorumid;
-    private int kullaniciid;
+    private Long yorumid;
     private String yorum;
     private Kullanici kullanici;
     private Arac arac;
@@ -11,28 +12,18 @@ public class Yorum {
     public Yorum() {
     }
 
-    public Yorum(int yorumid, int kullaniciid, String yorum) {
+    public Yorum(Long yorumid, String yorum) {
         this.yorumid = yorumid;
-        this.kullaniciid = kullaniciid;
         this.yorum = yorum;
     }
 
-    public int getYorumid() {
+    public Long getYorumid() {
         return yorumid;
     }
 
-    public void setYorumid(int yorumid) {
+    public void setYorumid(Long yorumid) {
         this.yorumid = yorumid;
     }
-
-    public int getKullaniciid() {
-        return kullaniciid;
-    }
-
-    public void setKullaniciid(int kullaniciid) {
-        this.kullaniciid = kullaniciid;
-    }
-
 
     public String getYorum() {
         return yorum;
@@ -60,9 +51,34 @@ public class Yorum {
 
     @Override
     public String toString() {
-        return "Yorum{" + "yorumid=" + yorumid + ", kullaniciid=" + kullaniciid + ", yorum=" + yorum + ", kullanici=" + kullanici + ", arac=" + arac + '}';
+        return "Yorum{" + "yorumid=" + yorumid + ", yorum=" + yorum + ", kullanici=" + kullanici + ", arac=" + arac + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.yorumid);
+        return hash;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Yorum other = (Yorum) obj;
+        if (!Objects.equals(this.yorumid, other.yorumid)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 
 }

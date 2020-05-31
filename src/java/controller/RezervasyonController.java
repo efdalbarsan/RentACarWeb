@@ -18,28 +18,29 @@ public class RezervasyonController implements Serializable {
 
     private List<Rezervasyon> rezervasyonList;
     private RezervasyonDAO rezervasyonDAO;
-    private Long KullaniciSec;
     private AracDAO aracDAO;
     private KullaniciDAO kullaniciDAO;
     private List<Arac> aracList;
     private List<Kullanici> kullaniciList;
-    
+
     private int page = 1;
     private int pageSize = 5;
     private int pageCount;
 
     public void next() {
-       if(this.page == this.getPageCount()){
-        this.page = 1;
-       }else
-           this.page++;
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
     }
 
     public void previous() {
         if (this.page == 1) {
             this.page = this.getPageCount();
-        }else 
+        } else {
             this.page--;
+        }
     }
 
     public int getPage() {
@@ -66,14 +67,13 @@ public class RezervasyonController implements Serializable {
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
-   
+
     public RezervasyonController() {
     }
 
     private Rezervasyon rezervasyon;
 
     public void updateForm(Rezervasyon rezervasyon) {
-        this.KullaniciSec =new Long(rezervasyon.getKullaniciid());
         this.rezervasyon = rezervasyon;
     }
 
@@ -96,14 +96,12 @@ public class RezervasyonController implements Serializable {
     }
 
     public void modify() {
-        this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().update(this.rezervasyon);
         clearForm();
     }
 
     public void create() {
-        this.rezervasyon.setKullaniciid(KullaniciSec.intValue());
         this.rezervasyon.setTarih(Date.valueOf(this.rezervasyon.getTempDate()));
         this.getRezervasyonDAO().create(this.rezervasyon);
         clearForm();
@@ -121,7 +119,7 @@ public class RezervasyonController implements Serializable {
     }
 
     public List<Rezervasyon> getRezervasyonList() {
-        this.rezervasyonList = this.getRezervasyonDAO().read();
+        this.rezervasyonList = this.getRezervasyonDAO().read(page,pageSize);
         return rezervasyonList;
     }
 
@@ -140,25 +138,17 @@ public class RezervasyonController implements Serializable {
         this.rezervasyonDAO = rezervasyonDAO;
     }
 
-    public Long getKullaniciSec() {
-        return KullaniciSec;
-    }
-
-    public void setKullaniciSec(Long KullaniciSec) {
-        this.KullaniciSec = KullaniciSec;
-    }
-
     public AracDAO getAracDAO() {
-        if(this.aracDAO == null){
+        if (this.aracDAO == null) {
             this.aracDAO = new AracDAO();
         }
         return aracDAO;
     }
 
     public KullaniciDAO getKullaniciDAO() {
-            if(this.kullaniciDAO == null){
-                kullaniciDAO = new KullaniciDAO();
-            }
+        if (this.kullaniciDAO == null) {
+            kullaniciDAO = new KullaniciDAO();
+        }
         return kullaniciDAO;
     }
 
@@ -179,6 +169,5 @@ public class RezervasyonController implements Serializable {
     public void setKullaniciList(List<Kullanici> kullaniciList) {
         this.kullaniciList = kullaniciList;
     }
-    
-    
+
 }

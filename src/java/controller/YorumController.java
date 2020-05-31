@@ -17,7 +17,6 @@ public class YorumController implements Serializable {
 
     private List<Yorum> yorumList;
     private YorumDAO yorumDAO;
-    private Long KullaniciSec;
     private AracDAO aracDAO;
     private KullaniciDAO kullaniciDAO;
     private List<Arac> aracList;
@@ -73,7 +72,6 @@ public class YorumController implements Serializable {
     private Yorum yorum;
 
     public void updateForm(Yorum yorum) {
-        this.KullaniciSec = new Long(yorum.getKullaniciid());
         this.yorum = yorum;
     }
 
@@ -96,13 +94,11 @@ public class YorumController implements Serializable {
     }
 
     public void modify() {
-        this.yorum.setKullaniciid(KullaniciSec.intValue());
         this.getYorumDAO().update(this.yorum);
         clearForm();
     }
 
     public void create() {
-        this.yorum.setKullaniciid(KullaniciSec.intValue());
         this.getYorumDAO().create(this.yorum);
         clearForm();
     }
@@ -119,7 +115,7 @@ public class YorumController implements Serializable {
     }
 
     public List<Yorum> getYorumList() {
-        this.yorumList = this.getYorumDAO().read();
+        this.yorumList = this.getYorumDAO().read(page,pageSize);
         return yorumList;
     }
 
@@ -136,14 +132,6 @@ public class YorumController implements Serializable {
 
     public void setYorumDAO(YorumDAO yorumDAO) {
         this.yorumDAO = yorumDAO;
-    }
-
-    public Long getKullaniciSec() {
-        return KullaniciSec;
-    }
-
-    public void setKullaniciSec(Long KullaniciSec) {
-        this.KullaniciSec = KullaniciSec;
     }
 
     public AracDAO getAracDAO() {

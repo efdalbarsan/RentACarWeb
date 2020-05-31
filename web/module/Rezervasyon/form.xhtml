@@ -14,8 +14,8 @@
         </div>
         <div class="form-inline">
             <label for="inputKullaniciId">KULLANICI ADI</label>                           
-            <h:selectOneMenu styleClass="custom-select" id ="KullaniciSec" value="#{rezervasyonController.kullaniciSec}">
-                <f:selectItems value="#{rezervasyonController.kullaniciList}" var="kullanici" itemValue="#{kullanici.kullaniciid}" itemLabel="#{kullanici.kullaniciadi}"/>
+            <h:selectOneMenu styleClass="custom-select" id ="KullaniciSec" value="#{rezervasyonController.rezervasyon.kullanici}" converter="KullaniciConverter">
+                <f:selectItems value="#{rezervasyonController.kullaniciList}" var="kullanici" itemValue="#{kullanici}" itemLabel="#{kullanici.kullaniciadi}"/>
             </h:selectOneMenu> 
         </div>
         <div class="form-inline">

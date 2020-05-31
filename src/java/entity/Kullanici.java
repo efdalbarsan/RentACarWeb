@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Objects;
+
 public class Kullanici {
 
     private Long kullaniciid;
@@ -81,6 +83,31 @@ public class Kullanici {
     @Override
     public String toString() {
         return "Kullanici{" + "kullaniciid=" + kullaniciid + ", email=" + email + ", kullaniciadi=" + kullaniciadi + ", sifre=" + sifre + ", telefon=" + telefon + ", adres=" + adres + ", grup=" + grup + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.kullaniciid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Kullanici other = (Kullanici) obj;
+        if (!Objects.equals(this.kullaniciid, other.kullaniciid)) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -4,7 +4,6 @@ import entity.Yorum;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +21,9 @@ public class YorumDAO extends Dao {
 
             while (rs.next()) {
                 Yorum tmp;
-                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getString("yorum"));
+                tmp = new Yorum(rs.getLong("yorumid"), rs.getString("yorum"));
 
-                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 clist.add(tmp);//Her yeni yorumi listeme ekliyorum
 
@@ -56,7 +55,7 @@ public class YorumDAO extends Dao {
         String q = "insert into yorum(kullaniciid,aracid,yorum) values (?,?,?)";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, yorum.getKullaniciid());
+            st.setLong(1, yorum.getKullanici().getKullaniciid());
             st.setLong(2, yorum.getArac().getAracid());
             st.setString(3, yorum.getYorum());
 
@@ -73,7 +72,7 @@ public class YorumDAO extends Dao {
         String q = "delete from yorum where yorumid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, yorum.getYorumid());
+            st.setLong(1, yorum.getYorumid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -87,10 +86,10 @@ public class YorumDAO extends Dao {
         String q = "update yorum set kullaniciid=?,aracid=?,yorum=? where yorumid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
-            st.setInt(1, yorum.getKullaniciid());
+            st.setLong(1, yorum.getKullanici().getKullaniciid());
             st.setLong(2, yorum.getArac().getAracid());
             st.setString(3, yorum.getYorum());
-            st.setInt(4, yorum.getYorumid());
+            st.setLong(4, yorum.getYorumid());
 
             st.executeUpdate();
 
@@ -122,9 +121,9 @@ public class YorumDAO extends Dao {
 
             while (rs.next()) {
                 Yorum tmp;
-                tmp = new Yorum(rs.getInt("yorumid"), rs.getInt("kullaniciid"), rs.getString("yorum"));
+                tmp = new Yorum(rs.getLong("yorumid"), rs.getString("yorum"));
 
-                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
                 clist.add(tmp);//Her yeni yorumi listeme ekliyorum
 

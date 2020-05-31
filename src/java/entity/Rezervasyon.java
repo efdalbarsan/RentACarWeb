@@ -3,8 +3,8 @@ package entity;
 import java.sql.Date;
 
 public class Rezervasyon {
+
     private int rezervasyonid;
-    private int kullaniciid;
     private String aciklama;
     private Date tarih;
     private String tempDate;
@@ -14,9 +14,8 @@ public class Rezervasyon {
     public Rezervasyon() {
     }
 
-    public Rezervasyon(int rezervasyonid, int musteriid, String aciklama, Date tarih) {
+    public Rezervasyon(int rezervasyonid, String aciklama, Date tarih) {
         this.rezervasyonid = rezervasyonid;
-        this.kullaniciid = musteriid;
         this.aciklama = aciklama;
         this.tarih = tarih;
     }
@@ -28,7 +27,6 @@ public class Rezervasyon {
     public void setTempDate(String tempDate) {
         this.tempDate = tempDate;
     }
-    
 
     public int getRezervasyonid() {
         return rezervasyonid;
@@ -37,16 +35,6 @@ public class Rezervasyon {
     public void setRezervasyonid(int rezervasyonid) {
         this.rezervasyonid = rezervasyonid;
     }
-
-
-    public int getKullaniciid() {
-        return kullaniciid;
-    }
-
-    public void setKullaniciid(int kullaniciid) {
-        this.kullaniciid = kullaniciid;
-    }
-
 
     public String getAciklama() {
         return aciklama;
@@ -82,9 +70,32 @@ public class Rezervasyon {
 
     @Override
     public String toString() {
-        return "Rezervasyon{" + "rezervasyonid=" + rezervasyonid + ", kullaniciid=" + kullaniciid + ", aciklama=" + aciklama + ", tarih=" + tarih + ", tempDate=" + tempDate + ", kullanici=" + kullanici + ", arac=" + arac + '}';
+        return "Rezervasyon{" + "rezervasyonid=" + rezervasyonid + ",aciklama=" + aciklama + ", tarih=" + tarih + ", tempDate=" + tempDate + ", kullanici=" + kullanici + ", arac=" + arac + '}';
     }
-    
-    
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + this.rezervasyonid;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rezervasyon other = (Rezervasyon) obj;
+        if (this.rezervasyonid != other.rezervasyonid) {
+            return false;
+        }
+        return true;
+    }
+
 }

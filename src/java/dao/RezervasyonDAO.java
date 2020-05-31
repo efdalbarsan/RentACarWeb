@@ -23,11 +23,11 @@ public class RezervasyonDAO extends Dao {
 
             while (rs.next()) {
                 Rezervasyon tmp;
-                tmp = new Rezervasyon(rs.getInt("rezervasyonid"),rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
-                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
 
             }
@@ -59,7 +59,7 @@ public class RezervasyonDAO extends Dao {
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
             st.setLong(1, rezervasyon.getArac().getAracid());
-            st.setInt(2, rezervasyon.getKullaniciid());
+            st.setLong(2, rezervasyon.getKullanici().getKullaniciid());
             st.setString(3, rezervasyon.getAciklama());
             st.setDate(4, rezervasyon.getTarih());
 
@@ -92,7 +92,7 @@ public class RezervasyonDAO extends Dao {
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
             st.setLong(1, rezervasyon.getArac().getAracid());
-            st.setInt(2, rezervasyon.getKullaniciid());
+            st.setLong(2, rezervasyon.getKullanici().getKullaniciid());
             st.setString(3, rezervasyon.getAciklama());
             st.setDate(4, rezervasyon.getTarih());
             st.setInt(5, rezervasyon.getRezervasyonid());
@@ -127,11 +127,11 @@ public class RezervasyonDAO extends Dao {
 
             while (rs.next()) {
                 Rezervasyon tmp;
-                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getInt("kullaniciid"), rs.getString("aciklama"), rs.getDate("tarih"));
+                tmp = new Rezervasyon(rs.getInt("rezervasyonid"), rs.getString("aciklama"), rs.getDate("tarih"));
                 tmp.setTempDate(String.valueOf(tmp.getTarih()));
 
                 tmp.setArac(this.getAracDAO().find(rs.getLong("aracid")));
-                tmp.setKullanici(this.getKullaniciDAO().find(rs.getInt("kullaniciid")));
+                tmp.setKullanici(this.getKullaniciDAO().find(rs.getLong("kullaniciid")));
                 clist.add(tmp);//Her yeni rezervasyoni listeme ekliyorum
 
             }
