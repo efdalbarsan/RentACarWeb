@@ -14,12 +14,14 @@ public class Arac {
     private String yakit;
     private String vites;
     private int fiyat;
+    private int document_id;
     private Firma firma;
+    private Document document;
 
     public Arac() {
     }
 
-    public Arac(Long aracid, String plaka, String marka, String model, double motor, int yil, int kilometre, String yakit, String vites, int fiyat) {
+    public Arac(Long aracid, String plaka, String marka, String model, double motor, int yil, int kilometre, String yakit, String vites, int fiyat, int document_id, Firma firma, Document document) {
         this.aracid = aracid;
         this.plaka = plaka;
         this.marka = marka;
@@ -30,8 +32,28 @@ public class Arac {
         this.yakit = yakit;
         this.vites = vites;
         this.fiyat = fiyat;
-
+        this.document_id = document_id;
+        this.firma = firma;
+        this.document = document;
     }
+
+    public int getDocument_id() {
+        return document_id;
+    }
+
+    public void setDocument_id(int document_id) {
+        this.document_id = document_id;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    
 
     public void setFirma(Firma firma) {
         this.firma = firma;

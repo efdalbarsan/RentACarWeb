@@ -49,6 +49,12 @@
                 <f:selectItems value="#{aracController.firmaList}" var="firma" itemValue="#{firma}" itemLabel="#{firma.adi}"/>
             </h:selectOneMenu> 
         </div>
+        <div class="form-inline">
+            <label for="inputFirmaId">Dosya Adı</label>
+            <h:selectOneMenu styleClass="custom-select" id ="dosya" value="#{aracController.arac.document}" converter="DocumentConverter">
+                <f:selectItems value="#{aracController.dlist}" var="dosya" itemValue="#{dosya}" itemLabel="#{dosya.fileName}"/>
+            </h:selectOneMenu> 
+        </div>
         <div class="form-group">
             <div class="btn-group">
                 <h:commandButton rendered="#{aracController.arac.plaka == null}" styleClass="btn btn-primary" value="Create" action="#{aracController.create}">

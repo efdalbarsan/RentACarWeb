@@ -1,8 +1,10 @@
 package controller;
 
 import dao.AracDAO;
+import dao.DocumentDao;
 import dao.FirmaDAO;
 import entity.Arac;
+import entity.Document;
 import entity.Firma;
 import java.io.Serializable;
 import java.util.List;
@@ -17,6 +19,8 @@ public class AracController implements Serializable {
     private AracDAO adao;
     private FirmaDAO firmaDAO;
     private List<Firma> firmaList;
+    private DocumentDao documentDao;
+    private List<Document> dlist;
 
     private int page = 1;
     private int pageSize = 5;
@@ -146,6 +150,23 @@ public class AracController implements Serializable {
 
     public void setFirmaList(List<Firma> firmaList) {
         this.firmaList = firmaList;
+    }
+
+    public DocumentDao getDocumentDao() {
+        if (documentDao == null) {
+            documentDao = new DocumentDao();
+        }
+        return documentDao;
+    }
+
+
+    public List<Document> getDlist() {
+        this.dlist = this.getDocumentDao().findAll();
+        return dlist;
+    }
+
+    public void setDlist(List<Document> dlist) {
+        this.dlist = dlist;
     }
 
 }

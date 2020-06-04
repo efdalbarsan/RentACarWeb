@@ -11,6 +11,7 @@ import java.util.List;
 public class AracDAO extends Dao {
 
     private FirmaDAO firmaDAO;
+    private DocumentDao documentDao;
 
     public List read(int page, int pageSize) {
         List<Arac> clist = new ArrayList();
@@ -21,10 +22,19 @@ public class AracDAO extends Dao {
             ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
-                Arac tmp;
-                tmp = new Arac(rs.getLong("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"));
-
+                Arac tmp = new Arac();
+                tmp.setAracid(rs.getLong("aracid"));
+                tmp.setPlaka(rs.getString("plaka"));
+                tmp.setMarka(rs.getString("marka"));
+                tmp.setModel(rs.getString("model"));
+                tmp.setMotor(rs.getDouble("motor"));
+                tmp.setYil(rs.getInt("yil"));
+                tmp.setKilometre(rs.getInt("kilometre"));
+                tmp.setYakit(rs.getString("yakit"));             
+                tmp.setVites(rs.getString("vites"));
                 tmp.setFirma(this.getFirmaDAO().find(rs.getLong("firmaid")));
+                tmp.setFiyat(rs.getInt("Fiyat"));         
+                tmp.setDocument(this.getDocumentDao().find(rs.getLong("document_id")));
                 clist.add(tmp);
             }
 
@@ -69,6 +79,7 @@ public class AracDAO extends Dao {
             a.setYakit(rs.getString("vites"));
             a.setFiyat(rs.getInt("Fiyat"));
             a.setFirma(getFirmaDAO().find(rs.getLong("firmaid")));
+            a.setDocument(getDocumentDao().find(rs.getLong("document_id")));
 
         } catch (SQLException ex) {
             System.out.println("ex.getMessage");
@@ -76,11 +87,10 @@ public class AracDAO extends Dao {
         return a;
     }
 
-    @Override
+   @Override
     public void create(Object obj) {
         Arac arac = (Arac) obj;
-        String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat) values (?,?,?,?,?,?,?,?,?,?)";
-        
+        String q = "insert into arac(plaka,marka,model,motor,yil,kilometre,yakit,vites,firmaid,fiyat,document_id) values (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, arac.getPlaka());
@@ -93,6 +103,7 @@ public class AracDAO extends Dao {
             st.setString(8, arac.getVites());
             st.setLong(9, arac.getFirma().getFirmaid());
             st.setInt(10, arac.getFiyat());
+            st.setLong(11, arac.getDocument().getId());
 
             st.executeUpdate();
 
@@ -118,7 +129,7 @@ public class AracDAO extends Dao {
     @Override
     public void update(Object obj) {
         Arac arac = (Arac) obj;
-        String q = "update arac set plaka=?,marka=?,model=?,motor=?,yil=?,kilometre=?,yakit=?,vites=?,firmaid=?,fiyat=? where aracid = ?";
+        String q = "update arac set plaka=?,marka=?,model=?,motor=?,yil=?,kilometre=?,yakit=?,vites=?,firmaid=?,fiyat=?,document_id=? where aracid = ?";
         try {
             PreparedStatement st = getConn().prepareStatement(q);
             st.setString(1, arac.getPlaka());
@@ -131,7 +142,8 @@ public class AracDAO extends Dao {
             st.setString(8, arac.getVites());
             st.setLong(9, arac.getFirma().getFirmaid());
             st.setInt(10, arac.getFiyat());
-            st.setLong(11, arac.getAracid());
+            st.setLong(11, arac.getDocument().getId());
+            st.setLong(12, arac.getAracid());
             st.executeUpdate();
 
         } catch (SQLException ex) {
@@ -155,12 +167,22 @@ public class AracDAO extends Dao {
             ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
-                Arac tmp;
-                tmp = new Arac(rs.getLong("aracid"), rs.getString("plaka"), rs.getString("marka"), rs.getString("model"), rs.getDouble("motor"), rs.getInt("yil"), rs.getInt("kilometre"), rs.getString("yakit"), rs.getString("vites"), rs.getInt("fiyat"));
-
+                Arac tmp = new Arac();
+                tmp.setAracid(rs.getLong("aracid"));
+                tmp.setPlaka(rs.getString("plaka"));
+                tmp.setMarka(rs.getString("marka"));
+                tmp.setModel(rs.getString("model"));
+                tmp.setMotor(rs.getDouble("motor"));
+                tmp.setYil(rs.getInt("yil"));
+                tmp.setKilometre(rs.getInt("kilometre"));
+                tmp.setYakit(rs.getString("yakit"));             
+                tmp.setVites(rs.getString("vites"));
                 tmp.setFirma(this.getFirmaDAO().find(rs.getLong("firmaid")));
+                tmp.setFiyat(rs.getInt("Fiyat"));         
+                tmp.setDocument(this.getDocumentDao().find(rs.getLong("document_id")));
                 clist.add(tmp);
             }
+                
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -168,4 +190,12 @@ public class AracDAO extends Dao {
 
         return clist;
     }
+
+    public DocumentDao getDocumentDao() {
+         if (this.documentDao == null) {
+            this.documentDao = new DocumentDao();
+        }
+        return documentDao;
+    }
+    
 }

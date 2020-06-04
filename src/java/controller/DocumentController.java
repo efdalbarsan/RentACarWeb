@@ -11,8 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import static java.lang.System.in;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -31,19 +32,18 @@ public class DocumentController implements Serializable{
     
     private Part doc;
     
-    private final String uploadTo ="/Users/Barsan/Desktop/RentACar-master/UploadOne/";
+    private final String uploadTo ="C:\\Users\\Barsan\\Desktop\\RentACar-master\\web\\upload\\";
     
     public void upload(){
         try{
             InputStream input = doc.getInputStream();
-            File f = new File(uploadTo+doc.getSubmittedFileName());
+            File f= new File(uploadTo+doc.getSubmittedFileName());
             Files.copy(input, f.toPath());
             
             document = this.getDocument();
             document.setFilePath(f.getParent());
             document.setFileName(f.getName());
             document.setFileType(doc.getContentType());
-            
             this.getDocumentDao().insert(document);
         }catch( IOException e){
             System.out.println(e.getMessage());
@@ -52,6 +52,15 @@ public class DocumentController implements Serializable{
 
     public String getUploadTo() {
         return uploadTo;
+    }
+    public void silBilgi(Document document) {
+        this.document = document;
+    }
+
+    public void sil() {
+        this.getDocumentDao().sil(this.document);
+        this.document = new Document();
+
     }
 
     public Document getDocument() {
@@ -91,6 +100,5 @@ public class DocumentController implements Serializable{
     public void setDoc(Part doc) {
         this.doc = doc;
     }
-    
     
 }
