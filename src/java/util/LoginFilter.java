@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
 
         if (u == null) {
             if (url.contains("secret") || url.contains("logout")) {
-                res.sendRedirect(req.getContextPath() + "/index.xhtml");
+                res.sendRedirect(req.getContextPath() + "/faces/index.xhtml");
             } else {
                 chain.doFilter(request, response);
             }

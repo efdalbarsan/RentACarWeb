@@ -12,6 +12,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -37,7 +38,12 @@ public class LoginController implements Serializable{
     }
     
     public String logout() {
-        return "/faces/index.xhtml";
+       FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        session.invalidate();
+       // return "/secret/logout.xhtml";
+       return "/faces/index.xhtml";
+        
     }
 
     public Kullanici getKullanici() {

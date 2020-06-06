@@ -62,12 +62,7 @@
                                 <h:commandButton rendered="#{kullaniciController.kullanici.email == null}" styleClass="btn btn-primary" value="KAYIT OL" action="#{kullaniciController.register()}">
                                     <f:ajax execute="kullanici-form" render="kullanici-form"/> 
                                 </h:commandButton>
-                                <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-dark" value="Update" action="#{kullaniciController.modify}">
-                                    <f:ajax execute="kullanici-form" render="kullanici-form"/>
-                                </h:commandButton>
-                                <h:commandButton rendered="#{kullaniciController.kullanici.email != null}" styleClass="btn btn-danger" value="Clear Form" action="#{kullaniciController.clearForm}">
-                                    <f:ajax execute="@this" render="kullanici-form"/> 
-                                </h:commandButton>
+                              
                             </div>
                         </div>
                     </h:form>
