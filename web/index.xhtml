@@ -35,17 +35,17 @@
                         <div class="form-group">
                             <h:inputHidden value ="#{kullaniciController.kullanici.email}"/>
                             <label for="inputEmail">E-MAIL</label>
-                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.email}"/>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.email}" validator="#{validator.validateEmaili}"/>
                         </div>
                         <div class="form-group">
                             <h:inputHidden value ="#{kullaniciController.kullanici.kullaniciadi}"/>
                             <label for="inputKullanciAdi">KULLANICI ADI</label>
-                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.kullaniciadi}"/>
+                            <h:inputText styleClass="form-control" value ="#{kullaniciController.kullanici.kullaniciadi}" validator="#{validator.validateAdi}"/>
                         </div>
                         <div class="form-group">
                             <h:inputHidden value ="#{kullaniciController.kullanici.sifre}"/>
                             <label for="inputSifre">SIFRE</label>
-                            <h:inputSecret  styleClass="form-control" value ="#{kullaniciController.kullanici.sifre}"/>
+                            <h:inputSecret  styleClass="form-control" value ="#{kullaniciController.kullanici.sifre}" validator="#{validator.validateSifresi}"/>
                         </div>
                         <div class="form-group">
                             <h:inputHidden value ="#{kullaniciController.kullanici.telefon}"/>
@@ -65,6 +65,7 @@
                               
                             </div>
                         </div>
+                        <h:messages styleClass="alert alert-danger alert" />
                     </h:form>
                 </div>
             </div>
