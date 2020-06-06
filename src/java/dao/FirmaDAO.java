@@ -18,7 +18,7 @@ public class FirmaDAO extends Dao {
 
         int start = (page - 1) * pageSize;
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from firma order by firmaid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            PreparedStatement st = getConn().prepareStatement("select * from firma order by firmaid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery(); 
 
             while (rs.next()) {

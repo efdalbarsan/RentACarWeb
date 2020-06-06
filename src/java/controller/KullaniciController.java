@@ -17,23 +17,25 @@ public class KullaniciController implements Serializable {
     private KullaniciDAO kullaniciDAO;
     private GrupDAO grupDAO;
     private List<Grup> grupList;
-    
+
     private int page = 1;
     private int pageSize = 5;
     private int pageCount;
 
     public void next() {
-       if(this.page == this.getPageCount()){
-        this.page = 1;
-       }else
-           this.page++;
+        if (this.page == this.getPageCount()) {
+            this.page = 1;
+        } else {
+            this.page++;
+        }
     }
 
     public void previous() {
         if (this.page == 1) {
             this.page = this.getPageCount();
-        }else 
+        } else {
             this.page--;
+        }
     }
 
     public int getPage() {
@@ -60,12 +62,10 @@ public class KullaniciController implements Serializable {
     public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
-    
 
     public KullaniciController() {
     }
-    
-    
+
     private Kullanici kullanici;
 
     public void updateForm(Kullanici kullanici) {
@@ -97,10 +97,14 @@ public class KullaniciController implements Serializable {
     }
 
     public void create() {
+        System.out.println("-------------------------->" + this.kullanici.toString());
+
         this.getKullaniciDAO().create(this.kullanici);
         clearForm();
     }
-      public void register() {
+
+    public void register() {
+        System.out.println("-------------------------->" + this.kullanici.toString());
         this.getKullaniciDAO().create(this.kullanici);
         clearForm();
     }
@@ -137,7 +141,7 @@ public class KullaniciController implements Serializable {
     }
 
     public GrupDAO getGrupDAO() {
-        if(this.grupDAO == null){
+        if (this.grupDAO == null) {
             this.grupDAO = new GrupDAO();
         }
         return grupDAO;

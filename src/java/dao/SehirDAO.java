@@ -21,7 +21,7 @@ public class SehirDAO extends Dao {
         int start = (page - 1) * pageSize;
 
         try {
-            PreparedStatement st = this.getConn().prepareStatement("select * from sehir order by sehir_id asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            PreparedStatement st = this.getConn().prepareStatement("select * from sehir order by sehir_id limit " +start+ " , " +pageSize);                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery();
             
             while (rs.next()) {
@@ -127,7 +127,7 @@ public class SehirDAO extends Dao {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }
+        } 
         return firmaSehir;
     }
 

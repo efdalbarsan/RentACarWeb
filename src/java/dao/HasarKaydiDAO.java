@@ -16,7 +16,7 @@ public class HasarKaydiDAO extends Dao {
         List<HasarKaydi> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from hasarkaydi order by hasarid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            PreparedStatement st = getConn().prepareStatement("select * from hasarkaydi order by hasarid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {

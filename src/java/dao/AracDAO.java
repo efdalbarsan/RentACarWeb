@@ -18,7 +18,7 @@ public class AracDAO extends Dao {
 
         int start = (page - 1) * pageSize;
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from arac order by aracid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            PreparedStatement st = getConn().prepareStatement("select * from arac order by aracid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
@@ -82,7 +82,7 @@ public class AracDAO extends Dao {
             a.setDocument(getDocumentDao().find(rs.getLong("document_id")));
 
         } catch (SQLException ex) {
-            System.out.println("ex.getMessage");
+            System.out.println(ex.getMessage());
         }
         return a;
     }

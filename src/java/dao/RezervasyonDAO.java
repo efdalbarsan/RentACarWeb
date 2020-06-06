@@ -18,7 +18,7 @@ public class RezervasyonDAO extends Dao {
         int start = (page - 1) * pageSize;
 
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from rezervasyon order by rezervasyonid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            PreparedStatement st = getConn().prepareStatement("select * from rezervasyon order by rezervasyonid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {

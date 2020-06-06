@@ -20,14 +20,14 @@ public class DBConnection {
     }
     
     public Connection getConnection() {
-        final String url = "jdbc:postgresql://localhost/RentACarWeb";
-        final String user = "postgres";
+        final String url = "jdbc:mariadb://localhost:3306/rentacarweb";
+        final String user = "root";
         final String password = "3344";
         Connection conn = null;
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
-       //     System.out.println("Connected to the PostgreSQL server successfully.");
+           System.out.println("Connected to the MARİADB server successfully.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException ex) {

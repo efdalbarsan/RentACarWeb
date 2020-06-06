@@ -15,12 +15,12 @@ public class KullaniciDAO extends Dao {
         List<Kullanici> clist = new ArrayList();
         int start = (page - 1) * pageSize;
         try {
-            PreparedStatement st = getConn().prepareStatement("select * from kullanici order by kullaniciid asc limit " + pageSize + " offset " + start);                    //sorgulari statement uzerinden yapariz
+            PreparedStatement st = getConn().prepareStatement("select * from kullanici order by kullaniciid asc limit " + start + " , " + pageSize);                    //sorgulari statement uzerinden yapariz
             ResultSet rs = st.executeQuery(); //executeQuery veritabanindan veri cekme islemini yapar. 
 
             while (rs.next()) {
                 Kullanici tmp;
-                tmp = new Kullanici(rs.getLong("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"),rs.getString("telefon"), rs.getString("adres"));
+                tmp = new Kullanici(rs.getLong("kullaniciid"), rs.getString("email"), rs.getString("kullaniciadi"), rs.getString("sifre"), rs.getString("telefon"), rs.getString("adres"));
 
                 tmp.setGrup(this.getGrupDAO().find(rs.getLong("grupid")));
                 clist.add(tmp);//Her yeni kullanicii listeme ekliyorum
@@ -74,12 +74,18 @@ public class KullaniciDAO extends Dao {
     public void create(Object obj) {
         Kullanici kullanici = (Kullanici) obj;
         String q = "insert into kullanici(email,kullaniciadi,sifre,grupid,telefon,adres) values (?,?,?,?,?,?)";
+        kullanici.setAdres(turkishEncode(kullanici.getAdres()));
         try {
             PreparedStatement st = this.getConn().prepareStatement(q);
             st.setString(1, kullanici.getEmail());
             st.setString(2, kullanici.getKullaniciadi());
             st.setString(3, kullanici.getSifre());
-            st.setLong(4, kullanici.getGrup().getGrupid());
+            if (kullanici.getGrup() == null) {
+                st.setLong(4, 3);
+            } else {
+                st.setLong(4, kullanici.getGrup().getGrupid());
+            }
+
             st.setString(5, kullanici.getTelefon());
             st.setString(6, kullanici.getAdres());
 
@@ -174,6 +180,18 @@ public class KullaniciDAO extends Dao {
             this.grupDAO = new GrupDAO();
         }
         return grupDAO;
+    }
+
+    public String turkishEncode(String term) {
+        String newTerm = term.replace('ş', 's');
+        newTerm = newTerm.replace('ğ', 'g');
+        newTerm = newTerm.replace('ö', 'o');
+        newTerm = newTerm.replace('ç', 'c');
+        newTerm = newTerm.replace('ü', 'u');
+        newTerm = newTerm.replace('ı', 'i');
+        newTerm = newTerm.replace('İ', 'I');
+
+        return newTerm;
     }
 
 }
