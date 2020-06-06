@@ -7,7 +7,7 @@
     
         <h:form id="sehir-table">
             <h:dataTable styleClass="table table-striped table-hover" value="#{sehirController.clist}" var="seh">
-                <h:column>
+                <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
                     <f:facet name="header">ID</f:facet>
                     <h:commandLink action="#{sehirController.updateForm(seh)}" value="#{seh.sehir_id}">
                         <f:ajax execute="@this" render="sehir-form" /> 
@@ -17,7 +17,7 @@
                     <f:facet name="header">AD</f:facet>
                         #{seh.adi}
                 </h:column>
-                <h:column>
+                <h:column rendered="#{sessionScope.valid_user.grup.grupadi == 'Admin'}">
                     <f:facet name="header">DELETE</f:facet>
                     <h:commandButton onclick="$('#myModal').modal('show')" styleClass="btn btn-sm btn-danger" action="#{sehirController.deleteConfirm(seh)}" value ="Delete">
                         <f:ajax execute="@this" render="delete-modal"/>
